@@ -1,3 +1,5 @@
+use crate::types::{portfolio::portfolio::Portfolio};
+
 impl Portfolio {
     pub fn new_dummy() -> Portfolio {
         Portfolio {

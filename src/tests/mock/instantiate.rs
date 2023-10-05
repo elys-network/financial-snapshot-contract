@@ -6,7 +6,6 @@ use crate::{bindings::query::ElysQuery, states::*, types::Order};
 #[cw_serde]
 pub struct InstantiateMockMsg {
     pub epoch_cycle_interval: u128,
-    pub orders: Vec<Order>,
 }
 
 pub fn instantiate(

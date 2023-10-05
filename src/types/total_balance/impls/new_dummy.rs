@@ -1,3 +1,5 @@
+use crate::types::{total_balance::total_balance::TotalBalance};
+
 impl TotalBalance {
     pub fn new_dummy() -> TotalBalance {
         TotalBalance {

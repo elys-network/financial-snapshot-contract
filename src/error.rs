@@ -6,10 +6,6 @@ use thiserror::Error;
 pub enum ContractError {
     #[error("{0}")]
     StdError(#[from] StdError),
-    #[error("Payment error: {0}")]
-    Payment(#[from] PaymentError),
-    #[error("{address} : Not Found")]
-    PortfolioNotFound { address: String },
     #[error("{sender} is not the owner of the order")]
     Unauthorized { sender: Addr },
 }
