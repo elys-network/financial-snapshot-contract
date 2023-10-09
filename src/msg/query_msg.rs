@@ -9,4 +9,6 @@ pub enum QueryMsg {
     GetTotalBalance { address: String },
     #[returns(GetPortfolioResp)]
     GetPortfolio { address: String },
+    #[returns(GetRewardsResp)]
+    GetRewards { address: String },
 }
