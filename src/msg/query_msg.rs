@@ -11,4 +11,8 @@ pub enum QueryMsg {
     GetPortfolio { address: String },
     #[returns(GetRewardsResp)]
     GetRewards { address: String },
+    #[returns(GetLiquidAssetsResp)]
+    GetLiquidAssets { },
+    #[returns(GetLiquidAssetResp)]
+    GetLiquidAsset { asset: String },
 }

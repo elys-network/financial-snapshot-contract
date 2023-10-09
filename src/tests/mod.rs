@@ -1,5 +1,5 @@
 use crate::{
-    entry_point::{execute, query},
+    entry_point::{query},
     msg::*,
     ContractError,
 };

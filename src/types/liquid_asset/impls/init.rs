@@ -1,9 +1,9 @@
-use crate::types::{liquid_asset::liquid_asset::LiquidAsset};
+use crate::types::liquid_asset::liquid_asset::LiquidAsset;
 
 impl LiquidAsset {
     pub fn init() -> LiquidAsset {
         LiquidAsset {
-            asset: "",
+            asset: "".to_string(),
             change_percent_24hr: 0.0,
             total_usd: 0.0,
             total_token: 0,

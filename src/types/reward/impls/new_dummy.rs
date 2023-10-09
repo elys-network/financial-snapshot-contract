@@ -1,4 +1,4 @@
-use crate::types::{reward::reward::Reward};
+use crate::types::reward::reward::Reward;
 
 impl Reward {
     pub fn new_dummy() -> Reward {

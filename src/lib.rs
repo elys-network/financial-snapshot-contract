@@ -27,6 +27,12 @@ pub mod msg {
         pub use get_portfolio_resp::GetPortfolioResp;
         mod get_total_balance_resp;
         pub use get_total_balance_resp::GetTotalBalanceResp;
+        mod get_liquid_asset_resp;
+        pub use get_liquid_asset_resp::GetLiquidAssetResp;
+        mod get_liquid_assets_resp;
+        pub use get_liquid_assets_resp::GetLiquidAssetsResp;
+        mod get_rewards_resp;
+        pub use get_rewards_resp::GetRewardsResp;
     }
 }
 
@@ -51,6 +57,25 @@ pub mod types {
     }
     pub use total_balance::total_balance::TotalBalance;
 
+    
+    mod liquid_asset {
+        pub mod liquid_asset;
+        mod impls {
+            mod init;
+            mod new_dummy;
+        }
+    }
+    pub use liquid_asset::liquid_asset::LiquidAsset;
+
+    mod reward {
+        pub mod reward;
+        mod impls {
+            mod init;
+            mod new_dummy;
+        }
+    }
+    pub use reward::reward::Reward;
+
     pub mod page_request;
     pub use page_request::PageRequest;
     pub mod page_response;
@@ -67,6 +92,12 @@ mod states {
     
     mod total_balance;
     pub use total_balance::TOTAL_BALANCE;
+
+    mod rewards;
+    pub use rewards::REWARDS;
+    
+    mod liquid_assets;
+    pub use liquid_assets::LIQUID_ASSETS;
 }
 
 mod action {
@@ -79,6 +110,12 @@ mod action {
         pub use get_portfolio::get_portfolio;
         mod get_total_balance;
         pub use get_total_balance::get_total_balance;
+        mod get_rewards;
+        pub use get_rewards::get_rewards;
+        mod get_liquid_asset;
+        pub use get_liquid_asset::get_liquid_asset;
+        mod get_liquid_assets;
+        pub use get_liquid_assets::get_liquid_assets;
     }
 }
 

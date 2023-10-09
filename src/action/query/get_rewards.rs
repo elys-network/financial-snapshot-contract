@@ -1,5 +1,5 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::GetRewardsResp, types::*};
+use crate::{bindings::query::ElysQuery, msg::query_resp::GetRewardsResp, types::*, states::REWARDS};
 
 pub fn get_rewards(deps: Deps<ElysQuery>, address: String) -> Result<GetRewardsResp, ContractError> {
     let rewards: Reward = REWARDS.load(deps.storage, &address)?;
