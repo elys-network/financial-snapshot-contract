@@ -1,10 +1,14 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::GetTotalBalanceResp, types::*};
+use crate::{bindings::query::ElysQuery, msg::query_resp::GetTotalBalanceResp };
 
 pub fn get_total_balance(deps: Deps<ElysQuery>, address: String) -> Result<GetTotalBalanceResp, ContractError> {
-    let total_balance: TotalBalance = TOTAL_BALANCE.load(deps.storage, &address)?;
+    let ret = TOTAL_BALANCE.may_load(deps.storage, &address);
     let resp = GetTotalBalanceResp {
-        data: total_balance,
+        data: match ret {
+            Ok(Some(data)) => data.to_owned(),
+            Ok(None) => TotalBalance::new_dummy(),
+            Err(_) => return Err(ContractError::TotalBalanceError{}),
+        },
     };
 
     Ok(resp)

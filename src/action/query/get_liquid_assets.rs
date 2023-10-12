@@ -1,11 +1,19 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::GetLiquidAssetsResp, types::*, states::LIQUID_ASSETS};
+use crate::{bindings::query::ElysQuery, msg::query_resp::GetLiquidAssetsResp};
 
 pub fn get_liquid_assets(deps: Deps<ElysQuery>) -> Result<GetLiquidAssetsResp, ContractError> {
     let liquid_assets: Vec<LiquidAsset> = LIQUID_ASSETS.load(deps.storage)?;
-    let resp = GetLiquidAssetsResp {
-        liquid_assets: liquid_assets
-    };
+    let resp: GetLiquidAssetsResp;
+
+    if liquid_assets.len() > 0 {
+        resp = GetLiquidAssetsResp {
+            liquid_assets: liquid_assets
+        };
+    } else {
+        resp = GetLiquidAssetsResp {
+            liquid_assets: LiquidAsset::new_dummys()
+        };
+    }
 
     Ok(resp)
 }

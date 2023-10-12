@@ -41,7 +41,6 @@ pub mod types {
         pub mod portfolio;
         mod impls {
             mod init;
-            #[cfg(test)]
             mod new_dummy;
         }
     }
@@ -51,7 +50,6 @@ pub mod types {
         pub mod total_balance;
         mod impls {
             mod init;
-            #[cfg(test)]
             mod new_dummy;
         }
     }
@@ -101,20 +99,21 @@ mod states {
 }
 
 mod action {
-    use crate::{states::PORTFOLIO, states::TOTAL_BALANCE, ContractError};
+    use crate::{states::PORTFOLIO, states::TOTAL_BALANCE, states::REWARDS, states::LIQUID_ASSETS, types::*, ContractError};
 
     pub mod query {
+        mod get_portfolio;
+        mod get_total_balance;
+        mod get_rewards;
+        mod get_liquid_asset;
+        mod get_liquid_assets;
+
         use super::*;
         use cosmwasm_std::Deps;
-        mod get_portfolio;
         pub use get_portfolio::get_portfolio;
-        mod get_total_balance;
         pub use get_total_balance::get_total_balance;
-        mod get_rewards;
         pub use get_rewards::get_rewards;
-        mod get_liquid_asset;
         pub use get_liquid_asset::get_liquid_asset;
-        mod get_liquid_assets;
         pub use get_liquid_assets::get_liquid_assets;
     }
 }
