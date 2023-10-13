@@ -33,6 +33,10 @@ pub mod msg {
         pub use get_liquid_assets_resp::GetLiquidAssetsResp;
         mod get_rewards_resp;
         pub use get_rewards_resp::GetRewardsResp;
+        mod get_liquidity_position_resp;
+        pub use get_liquidity_position_resp::GetLiquidityPositionResp;
+        mod get_liquidity_positions_resp;
+        pub use get_liquidity_positions_resp::GetLiquidityPositionsResp;
     }
 }
 
@@ -54,7 +58,6 @@ pub mod types {
         }
     }
     pub use total_balance::total_balance::TotalBalance;
-
     
     mod liquid_asset {
         pub mod liquid_asset;
@@ -73,6 +76,15 @@ pub mod types {
         }
     }
     pub use reward::reward::Reward;
+
+    mod liquidity_position {
+        pub mod liquidity_position;
+        mod impls {
+            mod init;
+            mod new_dummy;
+        }
+    }
+    pub use liquidity_position::liquidity_position::LiquidityPosition;
 
     pub mod page_request;
     pub use page_request::PageRequest;
@@ -96,10 +108,13 @@ mod states {
     
     mod liquid_assets;
     pub use liquid_assets::LIQUID_ASSETS;
+
+    mod liquidity_positions;
+    pub use liquidity_positions::LIQUIDITY_POSITIONS;
 }
 
 mod action {
-    use crate::{states::PORTFOLIO, states::TOTAL_BALANCE, states::REWARDS, states::LIQUID_ASSETS, types::*, ContractError};
+    use crate::{states::PORTFOLIO, states::TOTAL_BALANCE, states::REWARDS, states::LIQUID_ASSETS, states::LIQUIDITY_POSITIONS, types::*, ContractError};
 
     pub mod query {
         mod get_portfolio;
@@ -107,6 +122,8 @@ mod action {
         mod get_rewards;
         mod get_liquid_asset;
         mod get_liquid_assets;
+        mod get_liquidity_position;
+        mod get_liquidity_positions;
 
         use super::*;
         use cosmwasm_std::Deps;
@@ -115,6 +132,8 @@ mod action {
         pub use get_rewards::get_rewards;
         pub use get_liquid_asset::get_liquid_asset;
         pub use get_liquid_assets::get_liquid_assets;
+        pub use get_liquidity_position::get_liquidity_position;
+        pub use get_liquidity_positions::get_liquidity_positions;
     }
 }
 

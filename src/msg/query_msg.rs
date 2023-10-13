@@ -15,4 +15,8 @@ pub enum QueryMsg {
     GetLiquidAssets { },
     #[returns(GetLiquidAssetResp)]
     GetLiquidAsset { asset: String },
+    #[returns(GetLiquidityPositionsResp)]
+    GetLiquidityPositions { },
+    #[returns(GetLiquidityPositionResp)]
+    GetLiquidityPosition { pool_id: u64 },
 }
