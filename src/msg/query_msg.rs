@@ -9,4 +9,14 @@ pub enum QueryMsg {
     GetTotalBalance { address: String },
     #[returns(GetPortfolioResp)]
     GetPortfolio { address: String },
+    #[returns(GetRewardsResp)]
+    GetRewards { address: String },
+    #[returns(GetLiquidAssetsResp)]
+    GetLiquidAssets { },
+    #[returns(GetLiquidAssetResp)]
+    GetLiquidAsset { asset: String },
+    #[returns(GetLiquidityPositionsResp)]
+    GetLiquidityPositions { },
+    #[returns(GetLiquidityPositionResp)]
+    GetLiquidityPosition { pool_id: u64 },
 }

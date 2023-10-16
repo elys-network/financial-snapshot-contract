@@ -1,4 +1,4 @@
-use crate::types::{portfolio::portfolio::Portfolio};
+use crate::types::portfolio::portfolio::Portfolio;
 
 impl Portfolio {
     pub fn init() -> Portfolio {
