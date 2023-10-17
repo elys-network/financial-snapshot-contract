@@ -1,7 +1,7 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::GetTotalBalanceResp };
+use crate::{bindings::query::ElysQuery, msg::query_resp::pod::GetTotalBalanceResp };
 
-pub fn get_total_balance(deps: Deps<ElysQuery>, address: String) -> Result<GetTotalBalanceResp, ContractError> {
+pub fn get_pod_total_balance(deps: Deps<ElysQuery>, address: String) -> Result<GetTotalBalanceResp, ContractError> {
     let ret = TOTAL_BALANCE.may_load(deps.storage, &address);
     let resp = GetTotalBalanceResp {
         data: match ret {

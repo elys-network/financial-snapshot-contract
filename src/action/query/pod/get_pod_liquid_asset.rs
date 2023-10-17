@@ -1,7 +1,7 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::GetLiquidAssetResp};
+use crate::{bindings::query::ElysQuery, msg::query_resp::pod::GetLiquidAssetResp};
 
-pub fn get_liquid_asset(deps: Deps<ElysQuery>, asset: String) -> Result<GetLiquidAssetResp, ContractError> {
+pub fn get_pod_liquid_asset(deps: Deps<ElysQuery>, asset: String) -> Result<GetLiquidAssetResp, ContractError> {
     let liquid_assets: Vec<LiquidAsset> = LIQUID_ASSETS.load(deps.storage)?;
     let have_assets: Option<&LiquidAsset> = liquid_assets.iter().find(|liquid_asset| liquid_asset.asset == asset);
     let resp: GetLiquidAssetResp = GetLiquidAssetResp {
