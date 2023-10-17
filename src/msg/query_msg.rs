@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use super::query_resp::pod::*;
-use super::query_resp::common::*;
 use super::query_resp::earn::*;
+use super::query_resp::common::*;
 use cosmwasm_schema::{cw_serde, QueryResponses};
 
 #[cw_serde]
@@ -25,7 +25,7 @@ pub enum QueryMsg {
 
     // Earn dashboard
     #[returns(GetAPRResp)]
-    GetAPR { asset: String },
+    GetApr { asset: String },
     #[returns(GetBondingPeriodResp)]
     GetBondingPeriod { asset: String },
     #[returns(GetBalanceResp)]
