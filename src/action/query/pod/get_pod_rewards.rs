@@ -1,7 +1,7 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::GetRewardsResp};
+use crate::{bindings::query::ElysQuery, msg::query_resp::pod::GetRewardsResp};
 
-pub fn get_rewards(deps: Deps<ElysQuery>, address: String) -> Result<GetRewardsResp, ContractError> {
+pub fn get_pod_rewards(deps: Deps<ElysQuery>, address: String) -> Result<GetRewardsResp, ContractError> {
     let ret = REWARDS.may_load(deps.storage, &address);
     let resp = GetRewardsResp {
         rewards: match ret {
