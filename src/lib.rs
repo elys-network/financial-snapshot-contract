@@ -41,20 +41,8 @@ pub mod msg {
             pub use get_liquidity_positions_resp::GetLiquidityPositionsResp;
         }
         pub mod earn {
-            mod get_balance_resp;
-            mod get_num_vesting_positions_resp;
-            mod get_vesting_details_resp;
-
-            pub use get_balance_resp::GetBalanceResp;
-            pub use get_num_vesting_positions_resp::GetNumVestingPositionsResp;
-            pub use get_vesting_details_resp::GetVestingDetailsResp;
-        }
-        pub mod common {
-            mod get_apr_resp;
-            mod get_bonding_period_resp;
-
-            pub use get_apr_resp::GetAPRResp;
-            pub use get_bonding_period_resp::GetBondingPeriodResp;
+            mod get_earn_details_resp;
+            pub use get_earn_details_resp::GetEarnDetailsResp;
         }
     }
 }
@@ -105,23 +93,14 @@ pub mod types {
     }
     pub use liquidity_position::liquidity_position::LiquidityPosition;
 
-    mod balance_dollar {
-        pub mod balance_dollar;
+    mod earn_detail {
+        pub mod earn_detail;
         mod impls {
             mod init;
             mod new_dummy;
         }
     }
-    pub use balance_dollar::balance_dollar::BalanceDollar;
-
-    mod vesting_detail {
-        pub mod vesting_detail;
-        mod impls {
-            mod init;
-            mod new_dummy;
-        }
-    }
-    pub use vesting_detail::vesting_detail::VestingDetail;
+    pub use earn_detail::earn_detail::EarnDetail;
 
     pub mod page_request;
     pub use page_request::PageRequest;
@@ -149,34 +128,12 @@ mod states {
     mod liquidity_positions;
     pub use liquidity_positions::LIQUIDITY_POSITIONS;
 
-    mod balance_available;
-    pub use balance_available::BALANCE_AVAILABLE;
-
-    mod balance_reward;
-    pub use balance_reward::BALANCE_REWARD;
-
-    mod balance_staked;
-    pub use balance_staked::BALANCE_STAKED;
-
-    mod balance_vesting;
-    pub use balance_vesting::BALANCE_VESTING;
-
-    mod vestings_details;
-    pub use vestings_details::VESTING_DETAILS;
+    mod earn_details;
+    pub use earn_details::EARN_DETAILS;
 }
 
 mod action {
     pub mod query {
-        pub mod common {
-            mod get_apr;
-            mod get_bonding_period;
-    
-            use cosmwasm_std::Deps;
-            use crate::ContractError;
-            pub use get_apr::get_apr;
-            pub use get_bonding_period::get_bonding_period;
-        }
-
         pub mod pod {
             mod get_pod_liquid_asset;
             mod get_pod_liquid_assets;
@@ -198,21 +155,11 @@ mod action {
         }
 
         pub mod earn {
-            mod get_earn_balance_available;
-            mod get_earn_balance_rewards;
-            mod get_earn_balance_staked;
-            mod get_earn_balance_vesting;
-            mod get_earn_num_vesting_positions;
-            mod get_earn_vesting_details;
+            mod get_earn_details;
     
             use cosmwasm_std::Deps;
-            use crate::{states::BALANCE_AVAILABLE, states::BALANCE_REWARD, states::BALANCE_STAKED, states::BALANCE_VESTING, states::VESTING_DETAILS, types::*, ContractError};
-            pub use get_earn_balance_available::get_earn_balance_available;
-            pub use get_earn_balance_rewards::get_earn_balance_rewards;
-            pub use get_earn_balance_staked::get_earn_balance_staked;
-            pub use get_earn_balance_vesting::get_earn_balance_vesting;
-            pub use get_earn_num_vesting_positions::get_earn_num_vesting_positions;
-            pub use get_earn_vesting_details::get_earn_vesting_details;
+            use crate::ContractError;
+            pub use get_earn_details::get_earn_details;
         }
     }
 }

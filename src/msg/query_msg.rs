@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use super::query_resp::pod::*;
+#[allow(unused_imports)]
 use super::query_resp::earn::*;
-use super::query_resp::common::*;
 use cosmwasm_schema::{cw_serde, QueryResponses};
 
 #[cw_serde]
@@ -24,20 +24,6 @@ pub enum QueryMsg {
     GetPodLiquidityPosition { pool_id: u64 },
 
     // Earn dashboard
-    #[returns(GetAPRResp)]
-    GetApr { asset: String },
-    #[returns(GetBondingPeriodResp)]
-    GetBondingPeriod { asset: String },
-    #[returns(GetBalanceResp)]
-    GetEarnBalanceAvailable { address: String, asset: String },
-    #[returns(GetBalanceResp)]
-    GetEarnBalanceStaked { address: String, asset: String },
-    #[returns(GetBalanceResp)]
-    GetEarnBalanceVesting { address: String, asset: String },
-    #[returns(GetBalanceResp)]
-    GetEarnBalanceReward { address: String, asset: String },
-    #[returns(GetNumVestingPositionsResp)]
-    GetEarnNumVestingPositions { address: String },
-    #[returns(GetVestingDetailsResp)]
-    GetEarnVestingDetails { address: String },
+    #[returns(GetEarnDetailsResp)]
+    GetEarnDetails { address: Option<String>, asset: Option<String> },
 }

@@ -13,12 +13,7 @@ pub fn instantiate(
     REWARDS.save(deps.storage, "", &Reward::init())?;
     TOTAL_BALANCE.save(deps.storage, "", &TotalBalance::init())?;
     LIQUIDITY_POSITIONS.save(deps.storage, &vec![])?;
-
-    BALANCE_AVAILABLE.save(deps.storage, "", &vec![BalanceDollar::init()])?;
-    BALANCE_REWARD.save(deps.storage, "", &vec![BalanceDollar::init()])?;
-    BALANCE_STAKED.save(deps.storage, "", &vec![BalanceDollar::init()])?;
-    BALANCE_VESTING.save(deps.storage, "", &vec![BalanceDollar::init()])?;
-    VESTING_DETAILS.save(deps.storage, "", &vec![VestingDetail::init()])?;
+    EARN_DETAILS.save(deps.storage, "", &EarnDetail::init())?;
 
     Ok(Response::new())
 }
