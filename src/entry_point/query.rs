@@ -18,7 +18,11 @@ pub fn query(deps: Deps<ElysQuery>, _env: Env, msg: QueryMsg) -> Result<Binary, 
         GetPodLiquidityPositions { } => Ok(to_binary(&pod::get_pod_liquidity_positions(deps)?)?),
         GetPodLiquidityPosition { pool_id } => Ok(to_binary(&pod::get_pod_liquidity_position(deps, pool_id)?)?),
 
-        // Earn dashboard
-        GetEarnDetails { address, asset } => Ok(to_binary(&earn::get_earn_details(deps, address, asset)?)?),
+        // Earn Program
+        GetEdenBoostEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_eden_boost_earn_program_details(deps, address, asset)?)?),
+        GetEdenEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_eden_earn_program_details(deps, address, asset)?)?),
+        GetElysEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_elys_earn_program_details(deps, address, asset)?)?),
+        GetListValidators { name } => Ok(to_binary(&earn::get_list_validators(deps, name)?)?),
+        GetUSDCEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_usdc_earn_program_details(deps, address, asset)?)?),
     }
 }
