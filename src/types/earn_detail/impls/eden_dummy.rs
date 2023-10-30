@@ -45,6 +45,7 @@ impl EdenEarnProgram {
                     }),
                     vesting_details: Some(vec![
                         VestingDetail{
+                            id: "1".to_string(),
                             total_vest: BalanceAvailable{
                                 amount: 500,
                                 usd_amount: Decimal::from_atomics(Uint128::new(500), 0).unwrap(),
@@ -57,7 +58,23 @@ impl EdenEarnProgram {
                                 amount: 250,
                                 usd_amount: Decimal::from_atomics(Uint128::new(250), 0).unwrap(),
                             },
-                            remaining_time: 1800000,
+                            remaining_time: 1701370130000,
+                        },
+                        VestingDetail{
+                            id: "2".to_string(),
+                            total_vest: BalanceAvailable{
+                                amount: 800,
+                                usd_amount: Decimal::from_atomics(Uint128::new(500), 0).unwrap(),
+                            },
+                            balance_vested: BalanceAvailable{
+                                amount: 400,
+                                usd_amount: Decimal::from_atomics(Uint128::new(250), 0).unwrap(),
+                            },
+                            remaining_vest: BalanceAvailable{
+                                amount: 400,
+                                usd_amount: Decimal::from_atomics(Uint128::new(250), 0).unwrap(),
+                            },
+                            remaining_time: 1703962130000,
                         }]
                     ),
                 }

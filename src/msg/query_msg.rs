@@ -33,5 +33,5 @@ pub enum QueryMsg {
     #[returns(GetUsdcEarnProgramResp)]
     GetUsdcEarnProgramDetails { address: Option<String>, asset: String },
     #[returns(GetListOfValidatorsResp)]
-    GetListValidators { name: Option<String> },
+    GetListValidators { name: Option<String>, address: Option<String> },
 }

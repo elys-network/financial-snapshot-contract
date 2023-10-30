@@ -1,5 +1,5 @@
 use crate::types::earn_program::eden_boost_earn::EdenBoostEarnProgram;
-use crate::types::BalanceReward;
+use crate::types::{BalanceReward, AprUsdc};
 
 use cosmwasm_std::{Decimal, Uint128};
 
@@ -9,7 +9,10 @@ impl EdenBoostEarnProgram {
             Some(_s) => {
                 return EdenBoostEarnProgram {
                     bonding_period: 90,
-                    apr: 100,
+                    apr: AprUsdc {
+                        uusdc: 70,
+                        ueden: 80,
+                    },
                     available: Some(1000),
                     staked: Some(2000),
                     rewards: Some(vec![BalanceReward {
@@ -22,7 +25,10 @@ impl EdenBoostEarnProgram {
             None => {
                 return EdenBoostEarnProgram {
                     bonding_period: 90,
-                    apr: 100,
+                    apr: AprUsdc {
+                        uusdc: 70,
+                        ueden: 80,
+                    },
                     available: None,
                     staked: None,
                     rewards: None,

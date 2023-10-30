@@ -111,7 +111,7 @@ pub mod types {
             mod validators_dummy;
         }
     }
-    pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, ValidatorDetail};
+    pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, StakingValidator, ValidatorDetail};
 
     pub mod earn_program {
         pub mod eden_boost_earn;

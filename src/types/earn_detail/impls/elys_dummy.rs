@@ -1,5 +1,5 @@
 use crate::types::earn_program::elys_earn::ElysEarnProgram;
-use crate::types::{BalanceReward, AprElys, BalanceAvailable, StakedPosition, UnstakedPosition, ValidatorDetail};
+use crate::types::{BalanceReward, AprElys, BalanceAvailable, StakedPosition, UnstakedPosition, StakingValidator};
 
 use cosmwasm_std::{Decimal, Uint128};
 
@@ -43,10 +43,10 @@ impl ElysEarnProgram {
                         vec![
                             StakedPosition{
                                 id: "10".to_string(),
-                                validator: ValidatorDetail {
+                                validator: StakingValidator {
                                     id: "15".to_string(),
                                     name: "validator15".to_string(),
-                                    voting_power: 9999,
+                                    voting_power: Decimal::from_atomics(Uint128::new(40), 2).unwrap(),
                                     comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
                                     profile_picture_src: Some("https://i.pravatar.cc/300".to_string()),
                                 },
@@ -61,14 +61,14 @@ impl ElysEarnProgram {
                         vec![
                             UnstakedPosition{
                                 id: "11".to_string(),
-                                validator: ValidatorDetail {
+                                validator: StakingValidator {
                                     id: "12".to_string(),
                                     name: "validator12".to_string(),
-                                    voting_power: 9999,
+                                    voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
                                     comission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
                                     profile_picture_src: None,
                                 },
-                                remaining_time: 1800000,
+                                remaining_time: 1700074130000,
                                 unstaked: BalanceAvailable{
                                     amount: 500,
                                     usd_amount: Decimal::from_atomics(Uint128::new(500), 0).unwrap(),

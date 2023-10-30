@@ -1,4 +1,4 @@
-use crate::types::BalanceReward;
+use crate::types::{BalanceReward, AprUsdc};
 
 use cosmwasm_schema::cw_serde;
 
@@ -7,7 +7,7 @@ pub struct EdenBoostEarnProgram {
     // should be 0 initially. In days
     pub bonding_period: u64,
     // The APR For the Eden Boost Earn Program.
-    pub apr: u64,
+    pub apr: AprUsdc,
     // available should be the user Eden Boost liquid balance on Elys and returned
     // only if address is included in the request object.
     pub available: Option<u64>,
