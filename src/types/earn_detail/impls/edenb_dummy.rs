@@ -4,9 +4,9 @@ use crate::types::BalanceReward;
 use cosmwasm_std::{Decimal, Uint128};
 
 impl EdenBoostEarnProgram {
-    pub fn edenb_dummy(address: Option<String>, asset: String) -> EdenBoostEarnProgram {
+    pub fn edenb_dummy(address: Option<String>, _asset: String) -> EdenBoostEarnProgram {
         match address {
-            Some(s) => {
+            Some(_s) => {
                 return EdenBoostEarnProgram {
                     bonding_period: 90,
                     apr: 100,

@@ -4,9 +4,9 @@ use crate::types::{BalanceReward, AprElys, BalanceAvailable, StakedPosition, Uns
 use cosmwasm_std::{Decimal, Uint128};
 
 impl ElysEarnProgram {
-    pub fn elys_dummy(address: Option<String>, asset: String) -> ElysEarnProgram {
+    pub fn elys_dummy(address: Option<String>, _asset: String) -> ElysEarnProgram {
         match address {
-            Some(s) => {
+            Some(_s) => {
                 return ElysEarnProgram {
                     bonding_period: 90,
                     apr: AprElys {

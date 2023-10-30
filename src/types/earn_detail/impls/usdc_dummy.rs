@@ -4,9 +4,9 @@ use crate::types::{BalanceReward, AprUsdc, BalanceAvailable, BalanceBorrowed};
 use cosmwasm_std::{Decimal, Uint128};
 
 impl USDCEarnProgram {
-    pub fn usdc_dummy(address: Option<String>, asset: String) -> USDCEarnProgram {
+    pub fn usdc_dummy(address: Option<String>, _asset: String) -> USDCEarnProgram {
         match address {
-            Some(s) => {
+            Some(_s) => {
                 return USDCEarnProgram {
                     bonding_period: 90,
                     apr: AprUsdc {

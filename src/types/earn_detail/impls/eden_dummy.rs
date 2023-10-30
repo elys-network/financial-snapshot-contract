@@ -6,7 +6,7 @@ use cosmwasm_std::{Decimal, Uint128};
 impl EdenEarnProgram {
     pub fn eden_dummy(address: Option<String>, asset: String) -> EdenEarnProgram {
         match address {
-            Some(s) => {
+            Some(_s) => {
                 return EdenEarnProgram {
                     bonding_period: 90,
                     apr: AprUsdc {
@@ -28,7 +28,7 @@ impl EdenEarnProgram {
                             usd_amount: Some(Decimal::from_atomics(Uint128::new(800), 0).unwrap()),
                         },
                         BalanceReward {
-                            asset: "ueden".to_string(),
+                            asset: asset,
                             amount: 1000,
                             usd_amount: Some(Decimal::from_atomics(Uint128::new(1000), 0).unwrap()),
                         },

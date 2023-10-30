@@ -108,6 +108,7 @@ pub mod types {
             mod edenb_dummy;
             mod elys_dummy;
             mod usdc_dummy;
+            mod validators_dummy;
         }
     }
     pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, ValidatorDetail};
@@ -123,7 +124,7 @@ pub mod types {
         pub use elys_earn::ElysEarnProgram;
 
         pub mod list_validator;
-        pub use list_validator::ListOfValidators;
+        pub use list_validator::ListValidators;
 
         pub mod usdc_earn;
         pub use usdc_earn::USDCEarnProgram;
