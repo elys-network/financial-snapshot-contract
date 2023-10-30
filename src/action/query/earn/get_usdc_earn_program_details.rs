@@ -1,16 +1,13 @@
 use super::*;
-use crate::{bindings::query::ElysQuery, msg::query_resp::earn::GetEarnDetailsResp, types::EarnDetail};
+use crate::{bindings::query::ElysQuery, msg::query_resp::earn::GetUSDCEarnProgramResp};
+use crate::types::earn_program::USDCEarnProgram;
 
-pub fn get_usdc_earn_program_details(_deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetEarnDetailsResp, ContractError> {
+pub fn get_usdc_earn_program_details(_deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetUSDCEarnProgramResp, ContractError> {
     // TODO:
-    // 1. address valid and asset valid -> return earn detail.
-    // 2. address valid and asset invalid -> return earn detail of all asset.
-    // 3. address not provider -> return all earn details.
-    let resp = GetEarnDetailsResp {
-        data: match address {
-            Some(_addr) => EarnDetail::new_dummy_uusdc(asset, address),
-            None => EarnDetail::new_dummy_uusdc(asset, address),
-        }
+    // Real backend logic implementation
+    let resp = GetUSDCEarnProgramResp {
+        data: USDCEarnProgram::usdc_dummy(address, asset)
+
     };
 
     Ok(resp)

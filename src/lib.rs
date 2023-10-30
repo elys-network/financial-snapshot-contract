@@ -107,6 +107,7 @@ pub mod types {
             mod eden_dummy;
             mod edenb_dummy;
             mod elys_dummy;
+            mod usdc_dummy;
         }
     }
     pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, ValidatorDetail};
