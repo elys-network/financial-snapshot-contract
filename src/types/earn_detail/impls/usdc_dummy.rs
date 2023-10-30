@@ -1,13 +1,13 @@
-use crate::types::earn_program::usdc_earn::USDCEarnProgram;
+use crate::types::earn_program::usdc_earn::UsdcEarnProgram;
 use crate::types::{BalanceReward, AprUsdc, BalanceAvailable, BalanceBorrowed};
 
 use cosmwasm_std::{Decimal, Uint128};
 
-impl USDCEarnProgram {
-    pub fn usdc_dummy(address: Option<String>, _asset: String) -> USDCEarnProgram {
+impl UsdcEarnProgram {
+    pub fn usdc_dummy(address: Option<String>, _asset: String) -> UsdcEarnProgram {
         match address {
             Some(_s) => {
-                return USDCEarnProgram {
+                return UsdcEarnProgram {
                     bonding_period: 90,
                     apr: AprUsdc {
                         uusdc: 70,
@@ -40,7 +40,7 @@ impl USDCEarnProgram {
                 }
             },
             None => {
-                return USDCEarnProgram {
+                return UsdcEarnProgram {
                     bonding_period: 90,
                     apr: AprUsdc {
                         uusdc: 70,

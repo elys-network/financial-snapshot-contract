@@ -30,8 +30,8 @@ pub enum QueryMsg {
     GetEdenBoostEarnProgramDetails { address: Option<String>, asset: String },
     #[returns(GetElysEarnProgramResp)]
     GetElysEarnProgramDetails { address: Option<String>, asset: String },
-    #[returns(GetUSDCEarnProgramResp)]
-    GetUSDCEarnProgramDetails { address: Option<String>, asset: String },
+    #[returns(GetUsdcEarnProgramResp)]
+    GetUsdcEarnProgramDetails { address: Option<String>, asset: String },
     #[returns(GetListOfValidatorsResp)]
     GetListValidators { name: Option<String> },
 }

@@ -23,6 +23,6 @@ pub fn query(deps: Deps<ElysQuery>, _env: Env, msg: QueryMsg) -> Result<Binary, 
         GetEdenEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_eden_earn_program_details(deps, address, asset)?)?),
         GetElysEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_elys_earn_program_details(deps, address, asset)?)?),
         GetListValidators { name } => Ok(to_binary(&earn::get_list_validators(deps, name)?)?),
-        GetUSDCEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_usdc_earn_program_details(deps, address, asset)?)?),
+        GetUsdcEarnProgramDetails { address, asset } => Ok(to_binary(&earn::get_usdc_earn_program_details(deps, address, asset)?)?),
     }
 }

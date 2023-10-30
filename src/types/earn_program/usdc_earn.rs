@@ -3,7 +3,7 @@ use crate::types::{BalanceAvailable, BalanceBorrowed, BalanceReward, AprUsdc};
 use cosmwasm_schema::cw_serde;
 
 #[cw_serde]
-pub struct USDCEarnProgram {
+pub struct UsdcEarnProgram {
     // should be 0 initially. In days
     pub bonding_period: u64,
     // The APR For the USDC Earn Program.

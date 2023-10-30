@@ -50,7 +50,7 @@ pub mod msg {
             mod get_list_validators_resp;
             pub use get_list_validators_resp::GetListOfValidatorsResp;
             mod get_usdc_earn_details_resp;
-            pub use get_usdc_earn_details_resp::GetUSDCEarnProgramResp;
+            pub use get_usdc_earn_details_resp::GetUsdcEarnProgramResp;
         }
     }
 }
@@ -127,7 +127,7 @@ pub mod types {
         pub use list_validator::ListValidators;
 
         pub mod usdc_earn;
-        pub use usdc_earn::USDCEarnProgram;
+        pub use usdc_earn::UsdcEarnProgram;
     }
 
     pub mod page_request;

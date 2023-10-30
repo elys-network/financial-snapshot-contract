@@ -1,5 +1,5 @@
 use crate::types::earn_program::eden_earn::EdenEarnProgram;
-use crate::types::{BalanceReward, AprUsdc, BalanceAvailable, VestingDetail};
+use crate::types::{BalanceReward, AprElys, BalanceAvailable, VestingDetail};
 
 use cosmwasm_std::{Decimal, Uint128};
 
@@ -9,9 +9,10 @@ impl EdenEarnProgram {
             Some(_s) => {
                 return EdenEarnProgram {
                     bonding_period: 90,
-                    apr: AprUsdc {
+                    apr: AprElys {
                         uusdc: 70,
                         ueden: 80,
+                        uedenb: 100,
                     },
                     available: Some(BalanceAvailable{
                         amount: 1000,
@@ -64,9 +65,10 @@ impl EdenEarnProgram {
             None => {
                 return EdenEarnProgram {
                     bonding_period: 90,
-                    apr: AprUsdc {
+                    apr: AprElys {
                         uusdc: 70,
                         ueden: 80,
+                        uedenb: 100,
                     },
                     available: None,
                     staked: None,
