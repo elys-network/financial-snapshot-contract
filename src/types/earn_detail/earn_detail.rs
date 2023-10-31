@@ -49,8 +49,8 @@ pub struct VestingDetail {
 
 #[cw_serde]
 pub struct StakingValidator {
-    // The validator ID.
-    pub id: String,
+    // The validator address.
+    pub address: String,
     // The validator name.
     pub name: String,
     // Voting power percentage for this validator.
@@ -63,8 +63,8 @@ pub struct StakingValidator {
 
 #[cw_serde]
 pub struct ValidatorDetail {
-    // The validator ID.
-    pub id: String,
+    // The validator address.
+    pub address: String,
     // The validator name.
     pub name: String,
     // Voting power percentage for this validator.
