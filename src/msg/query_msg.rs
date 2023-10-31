@@ -24,6 +24,14 @@ pub enum QueryMsg {
     GetPodLiquidityPosition { pool_id: u64 },
 
     // Earn dashboard
-    #[returns(GetEarnDetailsResp)]
-    GetEarnDetails { address: Option<String>, asset: Option<String> },
+    #[returns(GetEdenEarnProgramResp)]
+    GetEdenEarnProgramDetails { address: Option<String>, asset: String },
+    #[returns(GetEdenBoostEarnProgramResp)]
+    GetEdenBoostEarnProgramDetails { address: Option<String>, asset: String },
+    #[returns(GetElysEarnProgramResp)]
+    GetElysEarnProgramDetails { address: Option<String>, asset: String },
+    #[returns(GetUsdcEarnProgramResp)]
+    GetUsdcEarnProgramDetails { address: Option<String>, asset: String },
+    #[returns(GetListOfValidatorsResp)]
+    GetListValidators { name: Option<String>, address: Option<String> },
 }

@@ -11,4 +11,6 @@ pub enum ContractError {
     RewardError {},
     #[error("TotalBalanceError")]
     TotalBalanceError {},
+    #[error("AssetDenomError")]
+    AssetDenomError {},
 }

@@ -13,7 +13,6 @@ pub fn instantiate(
     REWARDS.save(deps.storage, "", &Reward::init())?;
     TOTAL_BALANCE.save(deps.storage, "", &TotalBalance::init())?;
     LIQUIDITY_POSITIONS.save(deps.storage, &vec![])?;
-    EARN_DETAILS.save(deps.storage, "", &EarnDetail::init())?;
 
     Ok(Response::new())
 }

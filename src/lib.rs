@@ -41,8 +41,16 @@ pub mod msg {
             pub use get_liquidity_positions_resp::GetLiquidityPositionsResp;
         }
         pub mod earn {
-            mod get_earn_details_resp;
-            pub use get_earn_details_resp::GetEarnDetailsResp;
+            mod get_eden_boost_earn_details_resp;
+            pub use get_eden_boost_earn_details_resp::GetEdenBoostEarnProgramResp;
+            mod get_eden_earn_details_resp;
+            pub use get_eden_earn_details_resp::GetEdenEarnProgramResp;
+            mod get_elys_earn_details_resp;
+            pub use get_elys_earn_details_resp::GetElysEarnProgramResp;
+            mod get_list_validators_resp;
+            pub use get_list_validators_resp::GetListOfValidatorsResp;
+            mod get_usdc_earn_details_resp;
+            pub use get_usdc_earn_details_resp::GetUsdcEarnProgramResp;
         }
     }
 }
@@ -96,11 +104,31 @@ pub mod types {
     mod earn_detail {
         pub mod earn_detail;
         mod impls {
-            mod init;
-            mod new_dummy;
+            mod eden_dummy;
+            mod edenb_dummy;
+            mod elys_dummy;
+            mod usdc_dummy;
+            mod validators_dummy;
         }
     }
-    pub use earn_detail::earn_detail::EarnDetail;
+    pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, StakingValidator, ValidatorDetail};
+
+    pub mod earn_program {
+        pub mod eden_boost_earn;
+        pub use eden_boost_earn::EdenBoostEarnProgram;
+
+        pub mod eden_earn;
+        pub use eden_earn::EdenEarnProgram;
+
+        pub mod elys_earn;
+        pub use elys_earn::ElysEarnProgram;
+
+        pub mod list_validator;
+        pub use list_validator::ListValidators;
+
+        pub mod usdc_earn;
+        pub use usdc_earn::UsdcEarnProgram;
+    }
 
     pub mod page_request;
     pub use page_request::PageRequest;
@@ -127,9 +155,6 @@ mod states {
 
     mod liquidity_positions;
     pub use liquidity_positions::LIQUIDITY_POSITIONS;
-
-    mod earn_details;
-    pub use earn_details::EARN_DETAILS;
 }
 
 mod action {
@@ -155,11 +180,19 @@ mod action {
         }
 
         pub mod earn {
-            mod get_earn_details;
+            mod get_eden_boost_earn_program_details;
+            mod get_eden_earn_program_details;
+            mod get_elys_earn_program_details;
+            mod get_list_validators;
+            mod get_usdc_earn_program_details;
     
             use cosmwasm_std::Deps;
             use crate::ContractError;
-            pub use get_earn_details::get_earn_details;
+            pub use get_eden_boost_earn_program_details::get_eden_boost_earn_program_details;
+            pub use get_eden_earn_program_details::get_eden_earn_program_details;
+            pub use get_elys_earn_program_details::get_elys_earn_program_details;
+            pub use get_list_validators::get_list_validators;
+            pub use get_usdc_earn_program_details::get_usdc_earn_program_details;
         }
     }
 }
