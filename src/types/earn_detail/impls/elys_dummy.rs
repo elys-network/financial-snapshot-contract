@@ -44,7 +44,7 @@ impl ElysEarnProgram {
                             StakedPosition{
                                 id: "10".to_string(),
                                 validator: StakingValidator {
-                                    id: "15".to_string(),
+                                    address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                                     name: "validator15".to_string(),
                                     voting_power: Decimal::from_atomics(Uint128::new(40), 2).unwrap(),
                                     comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
@@ -62,7 +62,7 @@ impl ElysEarnProgram {
                             UnstakedPosition{
                                 id: "11".to_string(),
                                 validator: StakingValidator {
-                                    id: "12".to_string(),
+                                    address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                                     name: "validator12".to_string(),
                                     voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
                                     comission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),

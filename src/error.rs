@@ -13,4 +13,6 @@ pub enum ContractError {
     TotalBalanceError {},
     #[error("AssetDenomError")]
     AssetDenomError {},
+    #[error("{balance} is smaller than {amount}")]
+    InsufficientBalanceError {balance: u128, amount: u64},
 }

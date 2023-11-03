@@ -10,7 +10,7 @@ impl ListValidators {
                 match address {
                     Some(_addr) => {
                         vec![ValidatorDetail{
-                            id: "1".to_string(),
+                            address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                             name: n,
                             voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
                             comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
@@ -23,7 +23,7 @@ impl ListValidators {
                     },
                     None => {
                         vec![ValidatorDetail{
-                            id: "1".to_string(),
+                            address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                             name: n,
                             voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
                             comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
@@ -38,7 +38,7 @@ impl ListValidators {
                     Some(_addr) => {
                         vec![
                             ValidatorDetail{
-                                id: "1".to_string(),
+                                address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                                 name: "validator1".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(40), 2).unwrap(),
                                 comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
@@ -49,7 +49,7 @@ impl ListValidators {
                                 }),
                             },
                             ValidatorDetail{
-                                id: "2".to_string(),
+                                address: "elysvalcons1a86grpk3avnkn64gv7v4hx7ewej6qguut9654y".to_string(),
                                 name: "validator2".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
                                 comission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
@@ -64,7 +64,7 @@ impl ListValidators {
                     None => {
                         vec![
                             ValidatorDetail{
-                                id: "1".to_string(),
+                                address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                                 name: "validator1".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(40), 2).unwrap(),
                                 comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
@@ -72,7 +72,7 @@ impl ListValidators {
                                 staked: None,
                             },
                             ValidatorDetail{
-                                id: "2".to_string(),
+                                address: "elysvalcons1a86grpk3avnkn64gv7v4hx7ewej6qguut9654y".to_string(),
                                 name: "validator2".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
                                 comission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
