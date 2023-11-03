@@ -1,4 +1,5 @@
 use cosmwasm_schema::cw_serde;
+use cosmwasm_std::{Coin, Int128};
 
 #[cw_serde]
 pub enum ExecuteMsg {
@@ -14,4 +15,35 @@ pub enum ExecuteMsg {
         asset: String,
         validator_address: Option<String>,
     },
+    ElysRedelegateRequest {
+        delegator_address:    String,
+        validator_src_address: String,
+        validator_dst_address: String,
+        amount:              Coin,
+    },
+    ElysCancelUnstakeRequest {
+        delegator_address: String,
+        validator_address: String,
+        // amount is always less than or equal to unbonding delegation entry balance
+        amount: Coin,
+        // creation_height is the height which the unbonding took place.
+        creation_height: u64,
+    },
+    EdenVestRequest {
+        creator: String,
+        amount:  Int128,
+    },
+    EdenCancelVestRequest {
+        creator: String,
+        amount:  Int128,
+    },
+    ClaimRewardsRequest {
+        delegator_address: String,
+        denom:            String,
+    },
+    ClaimValidatorCommissionRequest {
+        delegator_address: String,
+        validator_address: String,
+        denom:            String,
+    }
 }
