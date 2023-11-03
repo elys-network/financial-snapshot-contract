@@ -42,7 +42,9 @@ pub mod query {
 
 pub mod execute {
     mod stake_request;
+    mod unstake_request;
     use super::*;
 
     pub use stake_request::stake_request;
+    pub use unstake_request::unstake_request;
 }

@@ -8,4 +8,10 @@ pub enum ExecuteMsg {
         asset: String,
         validator_address: Option<String>,
     },
+    UnstakeRequest {
+        address: String,
+        amount: u64,
+        asset: String,
+        validator_address: Option<String>,
+    },
 }

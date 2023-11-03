@@ -13,5 +13,6 @@ pub fn execute(
 
     match msg {
         StakeRequest { address, amount, asset, validator_address } => stake_request(env, info, deps, address, amount, asset, validator_address),
+        UnstakeRequest { address, amount, asset, validator_address } => unstake_request(env, info, deps, address, amount, asset, validator_address),
     }
 }

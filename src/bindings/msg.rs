@@ -9,6 +9,12 @@ pub enum ElysMsg {
         asset: String,
         validator_address: Option<String>,
     },
+    MsgUnstake {
+        address: String,
+        amount: Int128,
+        asset: String,
+        validator_address: Option<String>,
+    },
 }
 
 impl ElysMsg {
@@ -19,6 +25,20 @@ impl ElysMsg {
         validator_address: Option<String>,
     ) -> Self {
         Self::MsgStake {
+            address:address.to_owned(),
+            amount:amount.to_owned(),
+            asset:asset.to_owned(),
+            validator_address:validator_address.to_owned(),
+        }
+    }
+
+    pub fn unstake_token(
+        address: String,
+        amount: Int128,
+        asset: String,
+        validator_address: Option<String>,
+    ) -> Self {
+        Self::MsgUnstake {
             address:address.to_owned(),
             amount:amount.to_owned(),
             asset:asset.to_owned(),
