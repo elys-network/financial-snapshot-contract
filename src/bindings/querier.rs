@@ -15,10 +15,10 @@ impl<'a> ElysQuerier<'a> {
     pub fn new(querier: &'a QuerierWrapper<'a, ElysQuery>) -> Self {
         ElysQuerier { querier }
     }
-    pub fn get_balance(&self, address: String, asset: String) -> StdResult<Coin> {
-        let balance_query = ElysQuery::QueryBalanceRequest {
+    pub fn get_balance(&self, address: String, denom: String) -> StdResult<Coin> {
+        let balance_query = ElysQuery::BalanceOfDenom {
             address: address.to_owned(),
-            asset: asset.to_owned(),
+            denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(balance_query);
         let resp: QueryBalanceResponse = self.querier.query(&request)?;

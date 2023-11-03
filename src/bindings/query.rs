@@ -9,13 +9,13 @@ use cosmwasm_std::CustomQuery;
 #[derive(QueryResponses)]
 pub enum ElysQuery {
     #[returns(QueryBalanceResponse)]
-    QueryBalanceRequest { address: String, asset: String },
+    BalanceOfDenom { address: String, denom: String },
 }
 
 impl CustomQuery for ElysQuery {}
 
 impl ElysQuery {
-    pub fn get_balance(address: String, asset: String) -> Self {
-        ElysQuery::QueryBalanceRequest{ address, asset }
+    pub fn get_balance(address: String, denom: String) -> Self {
+        ElysQuery::BalanceOfDenom{ address, denom }
     }
 }
