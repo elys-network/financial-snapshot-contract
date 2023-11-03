@@ -8,7 +8,7 @@ pub fn elys_cancel_unstake_request(
     delegator_address: String,
     validator_address: String,
     amount: Coin,
-    creation_height: u64,
+    creation_height: i64,
 ) -> Result<Response<ElysMsg>, ContractError> {
     let msg = ElysMsg::cancel_unbonding(
         delegator_address,

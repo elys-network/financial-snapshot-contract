@@ -16,16 +16,16 @@ pub enum ElysMsg {
         validator_address: Option<String>,
     },
     MsgBeginRedelegate {
-        delegator_address:    String,
+        delegator_address: String,
         validator_src_address: String,
         validator_dst_address: String,
-        amount:              Coin,
+        amount: Coin,
     },
     MsgCancelUnbondingDelegation {
         delegator_address: String,
         validator_address: String,
         amount: Coin,
-        creation_height: u64,
+        creation_height: i64,
     },
     MsgVest {
         creator: String,
@@ -87,7 +87,7 @@ impl ElysMsg {
             delegator_address: delegator_address.to_owned(),
             validator_src_address: validator_src_address.to_owned(),
             validator_dst_address: validator_dst_address.to_owned(),
-            amount: amount.clone().to_owned(),
+            amount: amount.to_owned(),
         }
     }
 
@@ -95,13 +95,13 @@ impl ElysMsg {
         delegator_address: String,
         validator_address: String,
         amount: Coin,
-        creation_height: u64,
+        creation_height: i64,
     ) -> Self {
         Self::MsgCancelUnbondingDelegation {
             delegator_address: delegator_address.to_owned(),
             validator_address: validator_address.to_owned(),
-            amount: amount.clone().to_owned(),
-            creation_height: creation_height,
+            amount: amount.to_owned(),
+            creation_height: creation_height.to_owned(),
         }
     }
     
@@ -135,7 +135,7 @@ impl ElysMsg {
     ) -> Self {
         Self::MsgWithdrawRewards {
             delegator_address: delegator_address.to_owned(),
-            denom:            denom.to_owned(),
+            denom: denom.to_owned(),
         }
     }
 

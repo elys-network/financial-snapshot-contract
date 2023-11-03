@@ -27,15 +27,15 @@ pub enum ExecuteMsg {
         // amount is always less than or equal to unbonding delegation entry balance
         amount: Coin,
         // creation_height is the height which the unbonding took place.
-        creation_height: u64,
+        creation_height: i64,
     },
     EdenVestRequest {
         creator: String,
-        amount:  Int128,
+        amount:  u64,
     },
     EdenCancelVestRequest {
         creator: String,
-        amount:  Int128,
+        amount:  u64,
     },
     ClaimRewardsRequest {
         delegator_address: String,
