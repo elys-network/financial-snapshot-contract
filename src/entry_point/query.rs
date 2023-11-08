@@ -24,5 +24,6 @@ pub fn query(deps: Deps<ElysQuery>, _env: Env, msg: QueryMsg) -> Result<Binary, 
         GetElysEarnProgramDetails { address, asset } => Ok(to_json_binary(&earn::get_elys_earn_program_details(deps, address, asset)?)?),
         GetListValidators { name, address } => Ok(to_json_binary(&earn::get_list_validators(deps, name, address)?)?),
         GetUsdcEarnProgramDetails { address, asset } => Ok(to_json_binary(&earn::get_usdc_earn_program_details(deps, address, asset)?)?),
+        GetDelegations { delegator_addr } => Ok(to_json_binary(&earn::get_delegations(deps, delegator_addr)?)?),
     }
 }

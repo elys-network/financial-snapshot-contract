@@ -29,6 +29,7 @@ pub mod query {
         mod get_elys_earn_program_details;
         mod get_list_validators;
         mod get_usdc_earn_program_details;
+        mod get_delegations;
 
         use cosmwasm_std::Deps;
         use crate::ContractError;
@@ -37,6 +38,7 @@ pub mod query {
         pub use get_elys_earn_program_details::get_elys_earn_program_details;
         pub use get_list_validators::get_list_validators;
         pub use get_usdc_earn_program_details::get_usdc_earn_program_details;
+        pub use get_delegations::get_delegations;
     }
 }
 

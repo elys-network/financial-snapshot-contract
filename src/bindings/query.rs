@@ -10,6 +10,8 @@ use cosmwasm_std::CustomQuery;
 pub enum ElysQuery {
     #[returns(QueryBalanceResponse)]
     BalanceOfDenom { address: String, denom: String },
+    #[returns(QueryDelegatorDelegationsResponse)]
+    Delegations { delegator_addr: String},
 }
 
 impl CustomQuery for ElysQuery {}
@@ -17,5 +19,8 @@ impl CustomQuery for ElysQuery {}
 impl ElysQuery {
     pub fn get_balance(address: String, denom: String) -> Self {
         ElysQuery::BalanceOfDenom{ address, denom }
+    }
+    pub fn get_delegations(delegator_addr: String) -> Self {
+        ElysQuery::Delegations{ delegator_addr }
     }
 }
