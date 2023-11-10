@@ -2,7 +2,9 @@ use cosmwasm_std::{Coin, QuerierWrapper, QueryRequest, StdResult};
 
 use super::{
     query::ElysQuery,
-    query_resp::{QueryBalanceResponse,QueryDelegatorDelegationsResponse},
+    query_resp::{QueryBalanceResponse,
+        QueryDelegatorDelegationsResponse, 
+        QueryDelegatorUnbondingDelegationsResponse},
 };
 
 #[allow(dead_code)]
@@ -31,6 +33,15 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(delegations_query);
         let resp: QueryDelegatorDelegationsResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_unbonding_delegations(&self, delegator_addr: String) -> StdResult<QueryDelegatorUnbondingDelegationsResponse> {
+        let unbonding_delegations_query = ElysQuery::UnbondingDelegations {
+            delegator_addr: delegator_addr.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(unbonding_delegations_query);
+        let resp: QueryDelegatorUnbondingDelegationsResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }

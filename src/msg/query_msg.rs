@@ -3,7 +3,7 @@ use super::query_resp::pod::*;
 #[allow(unused_imports)]
 use super::query_resp::earn::*;
 use cosmwasm_schema::{cw_serde, QueryResponses};
-use crate::bindings::query_resp::QueryDelegatorDelegationsResponse;
+use crate::bindings::query_resp::{QueryDelegatorDelegationsResponse, QueryDelegatorUnbondingDelegationsResponse};
 
 #[cw_serde]
 #[derive(QueryResponses)]
@@ -37,4 +37,6 @@ pub enum QueryMsg {
     GetListValidators { name: Option<String>, address: Option<String> },
     #[returns(QueryDelegatorDelegationsResponse)]
     GetDelegations { delegator_addr: String },
+    #[returns(QueryDelegatorUnbondingDelegationsResponse)]
+    GetUnbondingDelegations { delegator_addr: String },
 }

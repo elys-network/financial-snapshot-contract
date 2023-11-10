@@ -12,6 +12,8 @@ pub enum ElysQuery {
     BalanceOfDenom { address: String, denom: String },
     #[returns(QueryDelegatorDelegationsResponse)]
     Delegations { delegator_addr: String},
+    #[returns(QueryDelegatorUnbondingDelegationsResponse)]
+    UnbondingDelegations { delegator_addr: String},
 }
 
 impl CustomQuery for ElysQuery {}
@@ -22,5 +24,8 @@ impl ElysQuery {
     }
     pub fn get_delegations(delegator_addr: String) -> Self {
         ElysQuery::Delegations{ delegator_addr }
+    }
+    pub fn get_unbonding_delegations(delegator_addr: String) -> Self {
+        ElysQuery::UnbondingDelegations{ delegator_addr }
     }
 }
