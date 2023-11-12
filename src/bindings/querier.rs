@@ -5,7 +5,8 @@ use super::{
     query_resp::{QueryBalanceResponse,
         QueryDelegatorDelegationsResponse, 
         QueryDelegatorUnbondingDelegationsResponse,
-        QueryDelegatorValidatorsResponse},
+        QueryDelegatorValidatorsResponse,
+        QueryShowCommitmentsResponse},
 };
 
 #[allow(dead_code)]
@@ -61,6 +62,15 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(validators_query);
         let resp: QueryDelegatorValidatorsResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_commitments(&self, address: String) -> StdResult<QueryShowCommitmentsResponse> {
+        let commitments_query = ElysQuery::CommitmentShowCommitments{
+            creator: address.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(commitments_query);
+        let resp: QueryShowCommitmentsResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }

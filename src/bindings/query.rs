@@ -18,6 +18,12 @@ pub enum ElysQuery {
     AllValidators { delegator_address: String },
     #[returns(QueryDelegatorValidatorsResponse)]
     DelegatorValidators { delegator_address: String },
+    #[returns(QueryBalanceResponse)]
+    StakedBalanceOfDenom { address: String, denom: String },
+    #[returns(QueryBalanceResponse)]
+    RewardsBalanceOfDenom { address: String, denom: String },
+    #[returns(QueryShowCommitmentsResponse)]
+    CommitmentShowCommitments { creator: String },
 }
 
 impl CustomQuery for ElysQuery {}
@@ -37,5 +43,8 @@ impl ElysQuery {
     }
     pub fn get_delegator_validators(delegator_addr: String) -> Self {
         ElysQuery::DelegatorValidators{ delegator_address: delegator_addr }
+    }
+    pub fn get_commitments(address: String) -> Self {
+        ElysQuery::CommitmentShowCommitments{ creator: address }
     }
 }

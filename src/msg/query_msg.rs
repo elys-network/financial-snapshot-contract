@@ -3,7 +3,7 @@ use super::query_resp::pod::*;
 #[allow(unused_imports)]
 use super::query_resp::earn::*;
 use cosmwasm_schema::{cw_serde, QueryResponses};
-use crate::bindings::query_resp::{QueryDelegatorDelegationsResponse, QueryDelegatorUnbondingDelegationsResponse, QueryDelegatorValidatorsResponse};
+use crate::bindings::query_resp::*;
 
 #[cw_serde]
 #[derive(QueryResponses)]
@@ -41,4 +41,6 @@ pub enum QueryMsg {
     GetDelegations { delegator_addr: String },
     #[returns(QueryDelegatorUnbondingDelegationsResponse)]
     GetUnbondingDelegations { delegator_addr: String },
+    #[returns(QueryShowCommitmentsResponse)]
+    GetCommitments { delegator_addr: String },
 }

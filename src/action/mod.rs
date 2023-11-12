@@ -32,6 +32,7 @@ pub mod query {
         mod get_usdc_earn_program_details;
         mod get_delegations;
         mod get_unbonding_delegations;
+        mod get_commitments;
 
         use cosmwasm_std::Deps;
         use crate::ContractError;
@@ -43,6 +44,7 @@ pub mod query {
         pub use get_usdc_earn_program_details::get_usdc_earn_program_details;
         pub use get_delegations::get_delegations;
         pub use get_unbonding_delegations::get_unbonding_delegations;
+        pub use get_commitments::get_commitments;
     }
 }
 
