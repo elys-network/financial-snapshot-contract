@@ -20,7 +20,7 @@ impl<'a> ElysQuerier<'a> {
         ElysQuerier { querier }
     }
     pub fn get_balance(&self, address: String, denom: String) -> StdResult<Coin> {
-        let balance_query = ElysQuery::BalanceOfDenom {
+        let balance_query = ElysQuery::AmmBalance {
             address: address.to_owned(),
             denom: denom.to_owned(),
         };

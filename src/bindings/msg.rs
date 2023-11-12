@@ -3,45 +3,45 @@ use cosmwasm_std::{CosmosMsg, CustomMsg, Int128, Coin};
 
 #[cw_serde]
 pub enum ElysMsg {
-    MsgStake {
-        address: String,
+    CommitmentStake {
+        creator: String,
         amount: Int128,
         asset: String,
         validator_address: Option<String>,
     },
-    MsgUnstake {
-        address: String,
+    CommitmentUnstake {
+        creator: String,
         amount: Int128,
         asset: String,
         validator_address: Option<String>,
     },
-    MsgBeginRedelegate {
+    IncentiveBeginRedelegate {
         delegator_address: String,
         validator_src_address: String,
         validator_dst_address: String,
         amount: Coin,
     },
-    MsgCancelUnbondingDelegation {
+    IncentiveCancelUnbondingDelegation {
         delegator_address: String,
         validator_address: String,
         amount: Coin,
         creation_height: i64,
     },
-    MsgVest {
+    CommitmentVest {
         creator: String,
         amount:  Int128,
         denom:   String,
     },
-    MsgCancelVest {
+    CommitmentCancelVest {
         creator: String,
         amount:  Int128,
         denom:   String,
     },
-    MsgWithdrawRewards {
+    IncentiveWithdrawRewards {
         delegator_address: String,
         denom:            String,
     },
-    MsgWithdrawValidatorCommission {
+    IncentiveWithdrawValidatorCommission {
         delegator_address: String,
         validator_address: String,
         denom:            String,
@@ -55,8 +55,8 @@ impl ElysMsg {
         asset: String,
         validator_address: Option<String>,
     ) -> Self {
-        Self::MsgStake {
-            address:address.to_owned(),
+        Self::CommitmentStake {
+            creator:address.to_owned(),
             amount:amount.to_owned(),
             asset:asset.to_owned(),
             validator_address:validator_address.to_owned(),
@@ -69,8 +69,8 @@ impl ElysMsg {
         asset: String,
         validator_address: Option<String>,
     ) -> Self {
-        Self::MsgUnstake {
-            address:address.to_owned(),
+        Self::CommitmentUnstake {
+            creator:address.to_owned(),
             amount:amount.to_owned(),
             asset:asset.to_owned(),
             validator_address:validator_address.to_owned(),
@@ -83,7 +83,7 @@ impl ElysMsg {
         validator_dst_address: String,
         amount:              Coin,
     ) -> Self {
-        Self::MsgBeginRedelegate {
+        Self::IncentiveBeginRedelegate {
             delegator_address: delegator_address.to_owned(),
             validator_src_address: validator_src_address.to_owned(),
             validator_dst_address: validator_dst_address.to_owned(),
@@ -97,7 +97,7 @@ impl ElysMsg {
         amount: Coin,
         creation_height: i64,
     ) -> Self {
-        Self::MsgCancelUnbondingDelegation {
+        Self::IncentiveCancelUnbondingDelegation {
             delegator_address: delegator_address.to_owned(),
             validator_address: validator_address.to_owned(),
             amount: amount.to_owned(),
@@ -110,7 +110,7 @@ impl ElysMsg {
         amount:  Int128,
         denom:   String,
     ) -> Self {
-        Self::MsgVest {
+        Self::CommitmentVest {
             creator: creator.to_owned(),
             amount:  amount,
             denom:   denom.to_owned(),
@@ -122,7 +122,7 @@ impl ElysMsg {
         amount:  Int128,
         denom:   String,
     ) -> Self {
-        Self::MsgCancelVest {
+        Self::CommitmentCancelVest {
             creator: creator.to_owned(),
             amount:  amount,
             denom:   denom.to_owned(),
@@ -133,7 +133,7 @@ impl ElysMsg {
         delegator_address: String,
         denom:            String,
     ) -> Self {
-        Self::MsgWithdrawRewards {
+        Self::IncentiveWithdrawRewards {
             delegator_address: delegator_address.to_owned(),
             denom: denom.to_owned(),
         }
@@ -144,7 +144,7 @@ impl ElysMsg {
         validator_address: String,
         denom:            String,
     ) -> Self {
-        Self::MsgWithdrawValidatorCommission {
+        Self::IncentiveWithdrawValidatorCommission {
             delegator_address: delegator_address.to_owned(),
             validator_address: validator_address.to_owned(),
             denom: denom.to_owned(),
