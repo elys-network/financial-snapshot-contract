@@ -1,5 +1,6 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, Decimal, Int128};
+use crate::types::ValidatorDetail;
 
 #[cw_serde]
 pub struct QueryBalanceResponse {
@@ -43,4 +44,9 @@ pub struct UnbondingDelegation {
 #[cw_serde]
 pub struct QueryDelegatorUnbondingDelegationsResponse {
     pub unbonding_responses: Vec<UnbondingDelegation>,
+}
+
+#[cw_serde]
+pub struct QueryDelegatorValidatorsResponse {
+    pub validators: Vec<ValidatorDetail>,
 }

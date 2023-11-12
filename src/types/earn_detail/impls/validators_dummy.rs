@@ -13,7 +13,7 @@ impl ListValidators {
                             address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                             name: n,
                             voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
-                            comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
+                            commission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
                             profile_picture_src: Some("https://i.pravatar.cc/300".to_string()),
                             staked: Some(BalanceAvailable{
                                 amount: 500,
@@ -26,7 +26,7 @@ impl ListValidators {
                             address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                             name: n,
                             voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
-                            comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
+                            commission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
                             profile_picture_src: Some("https://i.pravatar.cc/300".to_string()),
                             staked: None,
                         }]
@@ -41,7 +41,7 @@ impl ListValidators {
                                 address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                                 name: "validator1".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(40), 2).unwrap(),
-                                comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
+                                commission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
                                 profile_picture_src: None,
                                 staked: Some(BalanceAvailable{
                                     amount: 500,
@@ -52,7 +52,7 @@ impl ListValidators {
                                 address: "elysvalcons1a86grpk3avnkn64gv7v4hx7ewej6qguut9654y".to_string(),
                                 name: "validator2".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
-                                comission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
+                                commission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
                                 profile_picture_src: Some("https://i.pravatar.cc/300".to_string()),
                                 staked: Some(BalanceAvailable{
                                     amount: 2500,
@@ -67,7 +67,7 @@ impl ListValidators {
                                 address: "elysvalcons1l9jv5sfe7qz6tunuhguzly8eutpvw3llzc3jx4".to_string(),
                                 name: "validator1".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(40), 2).unwrap(),
-                                comission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
+                                commission: Decimal::from_atomics(Uint128::new(3), 2).unwrap(),
                                 profile_picture_src: None,
                                 staked: None,
                             },
@@ -75,7 +75,7 @@ impl ListValidators {
                                 address: "elysvalcons1a86grpk3avnkn64gv7v4hx7ewej6qguut9654y".to_string(),
                                 name: "validator2".to_string(),
                                 voting_power: Decimal::from_atomics(Uint128::new(60), 2).unwrap(),
-                                comission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
+                                commission: Decimal::from_atomics(Uint128::new(5), 2).unwrap(),
                                 profile_picture_src: Some("https://i.pravatar.cc/300".to_string()),
                                 staked: None,
                             }

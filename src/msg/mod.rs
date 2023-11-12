@@ -5,6 +5,7 @@ mod query_msg;
 pub use instantiate_msg::InstantiateMsg;
 pub use execute_msg::ExecuteMsg;
 pub use query_msg::QueryMsg;
+
 pub mod query_resp {
     pub mod pod {
         mod get_portfolio_resp;
@@ -30,8 +31,6 @@ pub mod query_resp {
         pub use get_eden_earn_details_resp::GetEdenEarnProgramResp;
         mod get_elys_earn_details_resp;
         pub use get_elys_earn_details_resp::GetElysEarnProgramResp;
-        mod get_list_validators_resp;
-        pub use get_list_validators_resp::GetListOfValidatorsResp;
         mod get_usdc_earn_details_resp;
         pub use get_usdc_earn_details_resp::GetUsdcEarnProgramResp;
     }

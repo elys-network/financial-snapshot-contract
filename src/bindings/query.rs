@@ -11,9 +11,13 @@ pub enum ElysQuery {
     #[returns(QueryBalanceResponse)]
     BalanceOfDenom { address: String, denom: String },
     #[returns(QueryDelegatorDelegationsResponse)]
-    Delegations { delegator_addr: String},
+    Delegations { delegator_address: String},
     #[returns(QueryDelegatorUnbondingDelegationsResponse)]
-    UnbondingDelegations { delegator_addr: String},
+    UnbondingDelegations { delegator_address: String },
+    #[returns(QueryDelegatorValidatorsResponse)]
+    AllValidators { delegator_address: String },
+    #[returns(QueryDelegatorValidatorsResponse)]
+    DelegatorValidators { delegator_address: String },
 }
 
 impl CustomQuery for ElysQuery {}
@@ -23,9 +27,15 @@ impl ElysQuery {
         ElysQuery::BalanceOfDenom{ address, denom }
     }
     pub fn get_delegations(delegator_addr: String) -> Self {
-        ElysQuery::Delegations{ delegator_addr }
+        ElysQuery::Delegations{ delegator_address: delegator_addr }
     }
     pub fn get_unbonding_delegations(delegator_addr: String) -> Self {
-        ElysQuery::UnbondingDelegations{ delegator_addr }
+        ElysQuery::UnbondingDelegations{ delegator_address: delegator_addr }
+    }
+    pub fn get_all_validators() -> Self {
+        ElysQuery::AllValidators{ delegator_address: "".to_string() }
+    }
+    pub fn get_delegator_validators(delegator_addr: String) -> Self {
+        ElysQuery::DelegatorValidators{ delegator_address: delegator_addr }
     }
 }

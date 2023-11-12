@@ -4,7 +4,8 @@ use super::{
     query::ElysQuery,
     query_resp::{QueryBalanceResponse,
         QueryDelegatorDelegationsResponse, 
-        QueryDelegatorUnbondingDelegationsResponse},
+        QueryDelegatorUnbondingDelegationsResponse,
+        QueryDelegatorValidatorsResponse},
 };
 
 #[allow(dead_code)]
@@ -29,7 +30,7 @@ impl<'a> ElysQuerier<'a> {
 
     pub fn get_delegations(&self, delegator_addr: String) -> StdResult<QueryDelegatorDelegationsResponse> {
         let delegations_query = ElysQuery::Delegations {
-            delegator_addr: delegator_addr.to_owned(),
+            delegator_address: delegator_addr.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(delegations_query);
         let resp: QueryDelegatorDelegationsResponse = self.querier.query(&request)?;
@@ -38,10 +39,28 @@ impl<'a> ElysQuerier<'a> {
 
     pub fn get_unbonding_delegations(&self, delegator_addr: String) -> StdResult<QueryDelegatorUnbondingDelegationsResponse> {
         let unbonding_delegations_query = ElysQuery::UnbondingDelegations {
-            delegator_addr: delegator_addr.to_owned(),
+            delegator_address: delegator_addr.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(unbonding_delegations_query);
         let resp: QueryDelegatorUnbondingDelegationsResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_all_validators(&self, delegator: String) -> StdResult<QueryDelegatorValidatorsResponse> {
+        let validators_query = ElysQuery::AllValidators{ 
+            delegator_address: delegator.to_owned()
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(validators_query);
+        let resp: QueryDelegatorValidatorsResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_delegator_validators(&self, delegator: String) -> StdResult<QueryDelegatorValidatorsResponse> {
+        let validators_query = ElysQuery::DelegatorValidators{
+            delegator_address: delegator.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(validators_query);
+        let resp: QueryDelegatorValidatorsResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }
