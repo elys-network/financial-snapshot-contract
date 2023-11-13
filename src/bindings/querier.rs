@@ -73,4 +73,25 @@ impl<'a> ElysQuerier<'a> {
         let resp: QueryShowCommitmentsResponse = self.querier.query(&request)?;
         Ok(resp)
     }
+
+    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<QueryBalanceResponse> {
+        let staked_balance_query = ElysQuery::StakedBalanceOfDenom{
+            address: address.to_owned(),
+            denom: denom.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
+        let resp: QueryBalanceResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_rewards_balance(&self, address: String, denom: String) -> StdResult<QueryBalanceResponse> {
+        let rewards_balance_query = ElysQuery::RewardsBalanceOfDenom{
+            address: address.to_owned(),
+            denom: denom.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(rewards_balance_query);
+        let resp: QueryBalanceResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
 }

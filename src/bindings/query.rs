@@ -27,7 +27,6 @@ pub enum ElysQuery {
 }
 
 impl CustomQuery for ElysQuery {}
-
 impl ElysQuery {
     pub fn get_balance(address: String, denom: String) -> Self {
         ElysQuery::AmmBalance{ address, denom }
@@ -46,5 +45,11 @@ impl ElysQuery {
     }
     pub fn get_commitments(address: String) -> Self {
         ElysQuery::CommitmentShowCommitments{ creator: address }
+    }
+    pub fn get_staked_balance(address: String, denom: String) -> Self {
+        ElysQuery::StakedBalanceOfDenom{ address, denom }
+    }
+    pub fn get_rewards_balance(address: String, denom: String) -> Self {
+        ElysQuery::RewardsBalanceOfDenom{ address, denom }
     }
 }
