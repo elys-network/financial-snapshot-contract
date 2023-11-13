@@ -14,7 +14,6 @@ pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
     let resp = GetUsdcEarnProgramResp {
         data: match address {
             Some(addr) => {
-                
                 let usdc_rewards = querier.get_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string())?;
                 let eden_rewards = querier.get_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string())?;
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
