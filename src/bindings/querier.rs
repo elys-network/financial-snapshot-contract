@@ -1,13 +1,14 @@
-use cosmwasm_std::{Coin, QuerierWrapper, QueryRequest, StdResult};
+use cosmwasm_std::{QuerierWrapper, QueryRequest, StdResult};
 
 use super::{
     query::ElysQuery,
-    query_resp::{QueryBalanceResponse,
-        QueryDelegatorDelegationsResponse, 
+    query_resp::{QueryDelegatorDelegationsResponse, 
         QueryDelegatorUnbondingDelegationsResponse,
         QueryDelegatorValidatorsResponse,
         QueryShowCommitmentsResponse},
 };
+
+use crate::types::{BalanceAvailable, BalanceBorrowed};
 
 #[allow(dead_code)]
 pub struct ElysQuerier<'a> {
@@ -19,18 +20,19 @@ impl<'a> ElysQuerier<'a> {
     pub fn new(querier: &'a QuerierWrapper<'a, ElysQuery>) -> Self {
         ElysQuerier { querier }
     }
-    pub fn get_balance(&self, address: String, denom: String) -> StdResult<Coin> {
+
+    pub fn get_balance(&self, address: String, denom: String) -> StdResult<BalanceAvailable> {
         let balance_query = ElysQuery::AmmBalance {
             address: address.to_owned(),
             denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(balance_query);
-        let resp: QueryBalanceResponse = self.querier.query(&request)?;
-        Ok(resp.balance)
+        let resp: BalanceAvailable = self.querier.query(&request)?;
+        Ok(resp)
     }
 
     pub fn get_delegations(&self, delegator_addr: String) -> StdResult<QueryDelegatorDelegationsResponse> {
-        let delegations_query = ElysQuery::Delegations {
+        let delegations_query = ElysQuery::CommitmentDelegations {
             delegator_address: delegator_addr.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(delegations_query);
@@ -39,7 +41,7 @@ impl<'a> ElysQuerier<'a> {
     }
 
     pub fn get_unbonding_delegations(&self, delegator_addr: String) -> StdResult<QueryDelegatorUnbondingDelegationsResponse> {
-        let unbonding_delegations_query = ElysQuery::UnbondingDelegations {
+        let unbonding_delegations_query = ElysQuery::CommitmentUnbondingDelegations {
             delegator_address: delegator_addr.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(unbonding_delegations_query);
@@ -48,7 +50,7 @@ impl<'a> ElysQuerier<'a> {
     }
 
     pub fn get_all_validators(&self, delegator: String) -> StdResult<QueryDelegatorValidatorsResponse> {
-        let validators_query = ElysQuery::AllValidators{ 
+        let validators_query = ElysQuery::CommitmentAllValidators{ 
             delegator_address: delegator.to_owned()
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(validators_query);
@@ -57,7 +59,7 @@ impl<'a> ElysQuerier<'a> {
     }
 
     pub fn get_delegator_validators(&self, delegator: String) -> StdResult<QueryDelegatorValidatorsResponse> {
-        let validators_query = ElysQuery::DelegatorValidators{
+        let validators_query = ElysQuery::CommitmentDelegatorValidators{
             delegator_address: delegator.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(validators_query);
@@ -74,24 +76,32 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<QueryBalanceResponse> {
-        let staked_balance_query = ElysQuery::StakedBalanceOfDenom{
+    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
+        let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
             address: address.to_owned(),
             denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
-        let resp: QueryBalanceResponse = self.querier.query(&request)?;
+        let resp: BalanceAvailable = self.querier.query(&request)?;
         Ok(resp)
     }
 
-    pub fn get_rewards_balance(&self, address: String, denom: String) -> StdResult<QueryBalanceResponse> {
-        let rewards_balance_query = ElysQuery::RewardsBalanceOfDenom{
+    pub fn get_rewards_balance(&self, address: String, denom: String) -> StdResult<BalanceAvailable> {
+        let rewards_balance_query = ElysQuery::CommitmentRewardsBalanceOfDenom{
             address: address.to_owned(),
             denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(rewards_balance_query);
-        let resp: QueryBalanceResponse = self.querier.query(&request)?;
+        let resp: BalanceAvailable = self.querier.query(&request)?;
         Ok(resp)
     }
 
+    pub fn get_borrowed_balance(&self, address: String) -> StdResult<BalanceBorrowed> {
+        let borrowed_balance_query = ElysQuery::StableStakeBalanceOfBorrow{
+            address: address.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(borrowed_balance_query);
+        let resp: BalanceBorrowed = self.querier.query(&request)?;
+        Ok(resp)
+    }
 }

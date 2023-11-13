@@ -1,3 +1,6 @@
+use cosmwasm_schema::cw_serde;
+
+#[cw_serde]
 pub enum ElysDenom {
     // Elys
     Elys,
@@ -10,7 +13,7 @@ pub enum ElysDenom {
 }
 
 impl ElysDenom {
-    fn as_str(&self) -> &'static str {
+    pub fn as_str(&self) -> &'static str {
         match self {
             ElysDenom::Elys => "uelys",
             ElysDenom::Eden => "ueden",
