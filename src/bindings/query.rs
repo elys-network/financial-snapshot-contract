@@ -27,6 +27,12 @@ pub enum ElysQuery {
     CommitmentShowCommitments { creator: String },
     #[returns(BalanceBorrowed)]
     StableStakeBalanceOfBorrow { address: String },
+    #[returns(QueryStakedPositionResponse)]
+    CommitmentStakedPositions { delegator_address: String },
+    #[returns(QueryUnstakedPositionResponse)]
+    CommitmentUnStakedPositions { delegator_address: String },
+    #[returns(QueryVestingInfoResponse)]
+    CommitmentVestingInfo{ address: String },
 }
 
 impl CustomQuery for ElysQuery {}
@@ -57,5 +63,14 @@ impl ElysQuery {
     }
     pub fn get_borrowed_balance(address: String) -> Self {
         ElysQuery::StableStakeBalanceOfBorrow{ address }
+    }
+    pub fn get_staked_positions(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentStakedPositions{ delegator_address: delegator_addr }
+    }
+    pub fn get_unstaked_positions(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentUnStakedPositions{ delegator_address: delegator_addr }
+    }
+    pub fn get_vesting_info(address: String) -> Self {
+        ElysQuery::CommitmentVestingInfo{ address }
     }
 }

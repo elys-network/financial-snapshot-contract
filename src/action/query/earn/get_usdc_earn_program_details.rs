@@ -5,7 +5,6 @@ use crate::types::{BalanceReward, AprUsdc};
 
 pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetUsdcEarnProgramResp, ContractError> {
     let denom = ElysDenom::Usdc.as_str();
-
     if asset != denom.to_string() {
         return Err(ContractError::AssetDenomError{});
     }

@@ -1,6 +1,6 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, Decimal, Int128};
-use crate::types::ValidatorDetail;
+use crate::types::{ValidatorDetail, StakedPosition, UnstakedPosition, BalanceAvailable, VestingDetail};
 
 #[cw_serde]
 pub struct QueryBalanceResponse {
@@ -91,4 +91,20 @@ pub struct Commitments {
 #[cw_serde]
 pub struct QueryShowCommitmentsResponse {
 	pub commitments: Commitments,
+}
+
+#[cw_serde]
+pub struct QueryStakedPositionResponse {
+	pub staked_position: Option<Vec<StakedPosition>>,
+}
+
+#[cw_serde]
+pub struct QueryUnstakedPositionResponse {
+	pub unstaked_position: Option<Vec<UnstakedPosition>>,
+}
+
+#[cw_serde]
+pub struct QueryVestingInfoResponse {
+	pub vesting: BalanceAvailable,
+	pub vesting_details: Option<Vec<VestingDetail>>,
 }

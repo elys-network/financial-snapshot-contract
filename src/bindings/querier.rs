@@ -5,7 +5,10 @@ use super::{
     query_resp::{QueryDelegatorDelegationsResponse, 
         QueryDelegatorUnbondingDelegationsResponse,
         QueryDelegatorValidatorsResponse,
-        QueryShowCommitmentsResponse},
+        QueryShowCommitmentsResponse, 
+        QueryStakedPositionResponse,
+        QueryUnstakedPositionResponse,
+        QueryVestingInfoResponse},
 };
 
 use crate::types::{BalanceAvailable, BalanceBorrowed};
@@ -102,6 +105,33 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(borrowed_balance_query);
         let resp: BalanceBorrowed = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_staked_positions(&self, address: String) -> StdResult<QueryStakedPositionResponse> {
+        let staked_position_query = ElysQuery::CommitmentStakedPositions{
+            delegator_address: address.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_position_query);
+        let resp: QueryStakedPositionResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_unstaked_positions(&self, address: String) -> StdResult<QueryUnstakedPositionResponse> {
+        let unstaked_position_query = ElysQuery::CommitmentUnStakedPositions{
+            delegator_address: address.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(unstaked_position_query);
+        let resp: QueryUnstakedPositionResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_vesting_info(&self, address: String) -> StdResult<QueryVestingInfoResponse> {
+        let vesting_info_query = ElysQuery::CommitmentVestingInfo{
+            address: address.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(vesting_info_query);
+        let resp: QueryVestingInfoResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }

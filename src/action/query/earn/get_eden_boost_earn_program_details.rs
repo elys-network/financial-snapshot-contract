@@ -4,7 +4,6 @@ use crate::types::{earn_program::eden_boost_earn::EdenBoostEarnProgram, ElysDeno
 
 pub fn get_eden_boost_earn_program_details(deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetEdenBoostEarnProgramResp, ContractError> {
     let denom = ElysDenom::EdenBoost.as_str();
-
     if asset != denom.to_string() {
         return Err(ContractError::AssetDenomError{});
     }
