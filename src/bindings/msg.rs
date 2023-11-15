@@ -1,6 +1,8 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{CosmosMsg, CustomMsg, Int128, Coin};
 
+use crate::types::EarnType;
+
 #[cw_serde]
 pub enum ElysMsg {
     CommitmentStake {
@@ -40,6 +42,7 @@ pub enum ElysMsg {
     IncentiveWithdrawRewards {
         delegator_address: String,
         denom:            String,
+        withdraw_type: EarnType,
     },
     IncentiveWithdrawValidatorCommission {
         delegator_address: String,
@@ -132,10 +135,12 @@ impl ElysMsg {
     pub fn withdraw_rewards(
         delegator_address: String,
         denom:            String,
+        witdhraw_type: EarnType,
     ) -> Self {
         Self::IncentiveWithdrawRewards {
             delegator_address: delegator_address.to_owned(),
             denom: denom.to_owned(),
+            withdraw_type: witdhraw_type.to_owned(),
         }
     }
 

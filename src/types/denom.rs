@@ -22,3 +22,12 @@ impl ElysDenom {
         }
     }
 }
+
+#[cw_serde]
+pub enum EarnType {
+    ALL_PROGRAM,
+	USDC_PROGRAM,
+	ELYS_PROGRAM,
+	EDEN_PROGRAM,
+	EDENB_PROGRAM,
+}

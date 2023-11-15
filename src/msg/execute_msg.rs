@@ -1,5 +1,6 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::Coin;
+use crate::types::EarnType;
 
 #[cw_serde]
 pub enum ExecuteMsg {
@@ -40,6 +41,7 @@ pub enum ExecuteMsg {
     ClaimRewardsRequest {
         delegator_address: String,
         denom:            String,
+        withdraw_type: EarnType,
     },
     ClaimValidatorCommissionRequest {
         delegator_address: String,

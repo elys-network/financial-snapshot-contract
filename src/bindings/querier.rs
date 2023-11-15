@@ -11,7 +11,7 @@ use super::{
         QueryVestingInfoResponse},
 };
 
-use crate::types::{BalanceAvailable, BalanceBorrowed};
+use crate::types::{BalanceAvailable, BalanceBorrowed, EarnType};
 
 #[allow(dead_code)]
 pub struct ElysQuerier<'a> {
@@ -134,4 +134,16 @@ impl<'a> ElysQuerier<'a> {
         let resp: QueryVestingInfoResponse = self.querier.query(&request)?;
         Ok(resp)
     }
+
+    pub fn get_sub_bucket_rewards_balance(&self, address: String, denom: String, program: EarnType) -> StdResult<BalanceAvailable> {
+        let sub_bucket_reward_query = ElysQuery::CommitmentRewardsSubBucketBalanceOfDenom{
+            address: address.to_owned(),
+            denom: denom.to_owned(),
+            program: program.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(sub_bucket_reward_query);
+        let resp: BalanceAvailable = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
 }

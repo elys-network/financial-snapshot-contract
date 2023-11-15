@@ -79,3 +79,4 @@ pub use page_response::PageResponse;
 
 pub mod denom;
 pub use denom::ElysDenom;
+pub use denom::EarnType;

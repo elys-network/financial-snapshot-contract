@@ -1,6 +1,6 @@
 use super::*;
 use crate::{bindings::{query::ElysQuery, querier::ElysQuerier}, msg::query_resp::earn::GetElysEarnProgramResp};
-use crate::types::{earn_program::elys_earn::ElysEarnProgram, ElysDenom, BalanceReward, AprElys};
+use crate::types::{earn_program::elys_earn::ElysEarnProgram, ElysDenom, BalanceReward, AprElys, EarnType};
 
 pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetElysEarnProgramResp, ContractError> {
     let denom = ElysDenom::Elys.as_str();
@@ -12,9 +12,9 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
     let resp = GetElysEarnProgramResp {
         data: match address {
             Some(addr) => {
-                let usdc_rewards = querier.get_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string())?;
-                let eden_rewards = querier.get_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string())?;
-                let edenb_rewards = querier.get_rewards_balance(addr.clone(), ElysDenom::EdenBoost.as_str().to_string())?;
+                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::ELYS_PROGRAM)?;
+                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::ELYS_PROGRAM)?;
+                let edenb_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::EdenBoost.as_str().to_string(), EarnType::ELYS_PROGRAM)?;
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
                 let staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 
