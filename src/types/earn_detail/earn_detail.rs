@@ -70,7 +70,7 @@ pub struct ValidatorDetail {
     // Voting power percentage for this validator.
     pub voting_power: Decimal,
     // Comission percentage for the validator.
-    pub comission: Decimal,
+    pub commission: Decimal,
     // The url of the validator profile picture
     pub profile_picture_src: Option<String>,
     // The staked amount the user has w/ this validator

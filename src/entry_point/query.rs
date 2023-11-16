@@ -22,7 +22,11 @@ pub fn query(deps: Deps<ElysQuery>, _env: Env, msg: QueryMsg) -> Result<Binary, 
         GetEdenBoostEarnProgramDetails { address, asset } => Ok(to_json_binary(&earn::get_eden_boost_earn_program_details(deps, address, asset)?)?),
         GetEdenEarnProgramDetails { address, asset } => Ok(to_json_binary(&earn::get_eden_earn_program_details(deps, address, asset)?)?),
         GetElysEarnProgramDetails { address, asset } => Ok(to_json_binary(&earn::get_elys_earn_program_details(deps, address, asset)?)?),
-        GetListValidators { name, address } => Ok(to_json_binary(&earn::get_list_validators(deps, name, address)?)?),
+        GetAllValidators { delegator_addr } => Ok(to_json_binary(&earn::get_all_validators(deps, delegator_addr)?)?),
+        GetDelegatorValidators { delegator_addr } => Ok(to_json_binary(&earn::get_delegator_validators(deps, delegator_addr)?)?),
         GetUsdcEarnProgramDetails { address, asset } => Ok(to_json_binary(&earn::get_usdc_earn_program_details(deps, address, asset)?)?),
+        GetDelegations { delegator_addr } => Ok(to_json_binary(&earn::get_delegations(deps, delegator_addr)?)?),
+        GetUnbondingDelegations { delegator_addr } => Ok(to_json_binary(&earn::get_unbonding_delegations(deps, delegator_addr)?)?),
+        GetCommitments { delegator_addr } => Ok(to_json_binary(&earn::get_commitments(deps, delegator_addr)?)?),
     }
 }

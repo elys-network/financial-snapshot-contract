@@ -3,6 +3,7 @@ use super::query_resp::pod::*;
 #[allow(unused_imports)]
 use super::query_resp::earn::*;
 use cosmwasm_schema::{cw_serde, QueryResponses};
+use crate::bindings::query_resp::*;
 
 #[cw_serde]
 #[derive(QueryResponses)]
@@ -32,6 +33,14 @@ pub enum QueryMsg {
     GetElysEarnProgramDetails { address: Option<String>, asset: String },
     #[returns(GetUsdcEarnProgramResp)]
     GetUsdcEarnProgramDetails { address: Option<String>, asset: String },
-    #[returns(GetListOfValidatorsResp)]
-    GetListValidators { name: Option<String>, address: Option<String> },
+    #[returns(QueryDelegatorValidatorsResponse)]
+    GetAllValidators { delegator_addr: Option<String> },
+    #[returns(QueryDelegatorValidatorsResponse)]
+    GetDelegatorValidators { delegator_addr: String },
+    #[returns(QueryDelegatorDelegationsResponse)]
+    GetDelegations { delegator_addr: String },
+    #[returns(QueryDelegatorUnbondingDelegationsResponse)]
+    GetUnbondingDelegations { delegator_addr: String },
+    #[returns(QueryShowCommitmentsResponse)]
+    GetCommitments { delegator_addr: String },
 }

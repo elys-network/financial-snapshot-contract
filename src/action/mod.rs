@@ -27,16 +27,24 @@ pub mod query {
         mod get_eden_boost_earn_program_details;
         mod get_eden_earn_program_details;
         mod get_elys_earn_program_details;
-        mod get_list_validators;
+        mod get_del_validators;
+        mod get_all_validators;
         mod get_usdc_earn_program_details;
+        mod get_delegations;
+        mod get_unbonding_delegations;
+        mod get_commitments;
 
         use cosmwasm_std::Deps;
         use crate::ContractError;
         pub use get_eden_boost_earn_program_details::get_eden_boost_earn_program_details;
         pub use get_eden_earn_program_details::get_eden_earn_program_details;
         pub use get_elys_earn_program_details::get_elys_earn_program_details;
-        pub use get_list_validators::get_list_validators;
+        pub use get_del_validators::get_delegator_validators;
+        pub use get_all_validators::get_all_validators;
         pub use get_usdc_earn_program_details::get_usdc_earn_program_details;
+        pub use get_delegations::get_delegations;
+        pub use get_unbonding_delegations::get_unbonding_delegations;
+        pub use get_commitments::get_commitments;
     }
 }
 

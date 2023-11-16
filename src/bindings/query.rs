@@ -1,5 +1,6 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
+use crate::types::{BalanceAvailable, BalanceBorrowed, EarnType};
 
 #[allow(unused_imports)]
 use cosmwasm_schema::{cw_serde, QueryResponses};
@@ -9,13 +10,72 @@ use cosmwasm_std::CustomQuery;
 #[derive(QueryResponses)]
 pub enum ElysQuery {
     #[returns(QueryBalanceResponse)]
-    BalanceOfDenom { address: String, denom: String },
+    AmmBalance { address: String, denom: String },
+    #[returns(QueryDelegatorDelegationsResponse)]
+    CommitmentDelegations { delegator_address: String},
+    #[returns(QueryDelegatorUnbondingDelegationsResponse)]
+    CommitmentUnbondingDelegations { delegator_address: String },
+    #[returns(QueryDelegatorValidatorsResponse)]
+    CommitmentAllValidators { delegator_address: String },
+    #[returns(QueryDelegatorValidatorsResponse)]
+    CommitmentDelegatorValidators { delegator_address: String },
+    #[returns(BalanceAvailable)]
+    CommitmentStakedBalanceOfDenom { address: String, denom: String },
+    #[returns(BalanceAvailable)]
+    CommitmentRewardsBalanceOfDenom { address: String, denom: String },
+    #[returns(QueryShowCommitmentsResponse)]
+    CommitmentShowCommitments { creator: String },
+    #[returns(BalanceBorrowed)]
+    StableStakeBalanceOfBorrow { address: String },
+    #[returns(QueryStakedPositionResponse)]
+    CommitmentStakedPositions { delegator_address: String },
+    #[returns(QueryUnstakedPositionResponse)]
+    CommitmentUnStakedPositions { delegator_address: String },
+    #[returns(QueryVestingInfoResponse)]
+    CommitmentVestingInfo{ address: String },
+    #[returns(BalanceAvailable)]
+    CommitmentRewardsSubBucketBalanceOfDenom{ address: String, denom: String, program: EarnType}
 }
 
 impl CustomQuery for ElysQuery {}
-
 impl ElysQuery {
     pub fn get_balance(address: String, denom: String) -> Self {
-        ElysQuery::BalanceOfDenom{ address, denom }
+        ElysQuery::AmmBalance{ address, denom }
+    }
+    pub fn get_delegations(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentDelegations{ delegator_address: delegator_addr }
+    }
+    pub fn get_unbonding_delegations(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentUnbondingDelegations{ delegator_address: delegator_addr }
+    }
+    pub fn get_all_validators() -> Self {
+        ElysQuery::CommitmentAllValidators{ delegator_address: "".to_string() }
+    }
+    pub fn get_delegator_validators(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentDelegatorValidators{ delegator_address: delegator_addr }
+    }
+    pub fn get_commitments(address: String) -> Self {
+        ElysQuery::CommitmentShowCommitments{ creator: address }
+    }
+    pub fn get_staked_balance(address: String, denom: String) -> Self {
+        ElysQuery::CommitmentStakedBalanceOfDenom{ address, denom }
+    }
+    pub fn get_rewards_balance(address: String, denom: String) -> Self {
+        ElysQuery::CommitmentRewardsBalanceOfDenom{ address, denom }
+    }
+    pub fn get_borrowed_balance(address: String) -> Self {
+        ElysQuery::StableStakeBalanceOfBorrow{ address }
+    }
+    pub fn get_staked_positions(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentStakedPositions{ delegator_address: delegator_addr }
+    }
+    pub fn get_unstaked_positions(delegator_addr: String) -> Self {
+        ElysQuery::CommitmentUnStakedPositions{ delegator_address: delegator_addr }
+    }
+    pub fn get_vesting_info(address: String) -> Self {
+        ElysQuery::CommitmentVestingInfo{ address }
+    }
+    pub fn get_sub_bucket_rewards_balance(address: String, denom: String, program: EarnType) -> Self {
+        ElysQuery::CommitmentRewardsSubBucketBalanceOfDenom{ address, denom, program }
     }
 }

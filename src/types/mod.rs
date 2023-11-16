@@ -43,7 +43,7 @@ mod liquidity_position {
 }
 pub use liquidity_position::liquidity_position::LiquidityPosition;
 
-mod earn_detail {
+pub mod earn_detail {
     pub mod earn_detail;
     mod impls {
         mod eden_dummy;
@@ -79,3 +79,4 @@ pub use page_response::PageResponse;
 
 pub mod denom;
 pub use denom::ElysDenom;
+pub use denom::EarnType;
