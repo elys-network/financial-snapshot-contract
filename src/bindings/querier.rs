@@ -34,6 +34,16 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
+    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
+        let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
+            address: address.to_owned(),
+            denom: denom.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
+        let resp: BalanceAvailable = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
     pub fn get_delegations(&self, delegator_addr: String) -> StdResult<QueryDelegatorDelegationsResponse> {
         let delegations_query = ElysQuery::CommitmentDelegations {
             delegator_address: delegator_addr.to_owned(),
@@ -76,16 +86,6 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(commitments_query);
         let resp: QueryShowCommitmentsResponse = self.querier.query(&request)?;
-        Ok(resp)
-    }
-
-    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
-        let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
-            address: address.to_owned(),
-            denom: denom.to_owned(),
-        };
-        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
-        let resp: BalanceAvailable = self.querier.query(&request)?;
         Ok(resp)
     }
 
@@ -135,7 +135,7 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_sub_bucket_rewards_balance(&self, address: String, denom: String, program: EarnType) -> StdResult<BalanceAvailable> {
+    pub fn get_sub_bucket_rewards_balance(&self, address: String, denom: String, program: i32) -> StdResult<BalanceAvailable> {
         let sub_bucket_reward_query = ElysQuery::CommitmentRewardsSubBucketBalanceOfDenom{
             address: address.to_owned(),
             denom: denom.to_owned(),

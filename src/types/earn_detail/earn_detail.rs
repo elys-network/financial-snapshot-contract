@@ -1,5 +1,5 @@
 use cosmwasm_schema::cw_serde;
-use cosmwasm_std::Decimal;
+use cosmwasm_std::{Decimal, Uint128};
 
 #[cw_serde]
 pub struct AprUsdc {
@@ -22,14 +22,14 @@ pub struct BalanceBorrowed {
 
 #[cw_serde]
 pub struct BalanceAvailable {
-    pub amount: u64,
+    pub amount: Uint128,
     pub usd_amount: Decimal,
 }
 
 #[cw_serde]
 pub struct BalanceReward {
     pub asset: String,
-    pub amount: u64,
+    pub amount: Uint128,
     pub usd_amount: Option<Decimal>,
 }
 
@@ -55,8 +55,8 @@ pub struct StakingValidator {
     pub name: String,
     // Voting power percentage for this validator.
     pub voting_power: Decimal,
-    // Comission percentage for the validator.
-    pub comission: Decimal,
+    // commission percentage for the validator.
+    pub commission: Decimal,
     // The url of the validator profile picture
     pub profile_picture_src: Option<String>,
 }
@@ -69,7 +69,7 @@ pub struct ValidatorDetail {
     pub name: String,
     // Voting power percentage for this validator.
     pub voting_power: Decimal,
-    // Comission percentage for the validator.
+    // commission percentage for the validator.
     pub commission: Decimal,
     // The url of the validator profile picture
     pub profile_picture_src: Option<String>,

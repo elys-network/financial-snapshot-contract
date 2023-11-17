@@ -25,9 +25,9 @@ impl ElysDenom {
 
 #[cw_serde]
 pub enum EarnType {
-    ALL_PROGRAM,
-	USDC_PROGRAM,
-	ELYS_PROGRAM,
-	EDEN_PROGRAM,
-	EDENB_PROGRAM,
+    AllProgram = 0,
+	UsdcProgram = 1,
+	ElysProgram = 2,
+	EdenProgram = 3,
+	EdenBProgram = 4,
 }

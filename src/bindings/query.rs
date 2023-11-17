@@ -1,6 +1,6 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
-use crate::types::{BalanceAvailable, BalanceBorrowed, EarnType};
+use crate::types::{BalanceAvailable, BalanceBorrowed};
 
 #[allow(unused_imports)]
 use cosmwasm_schema::{cw_serde, QueryResponses};
@@ -9,7 +9,7 @@ use cosmwasm_std::CustomQuery;
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum ElysQuery {
-    #[returns(QueryBalanceResponse)]
+    #[returns(BalanceAvailable)]
     AmmBalance { address: String, denom: String },
     #[returns(QueryDelegatorDelegationsResponse)]
     CommitmentDelegations { delegator_address: String},
@@ -34,7 +34,7 @@ pub enum ElysQuery {
     #[returns(QueryVestingInfoResponse)]
     CommitmentVestingInfo{ address: String },
     #[returns(BalanceAvailable)]
-    CommitmentRewardsSubBucketBalanceOfDenom{ address: String, denom: String, program: EarnType}
+    CommitmentRewardsSubBucketBalanceOfDenom{ address: String, denom: String, program: i32}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -75,7 +75,7 @@ impl ElysQuery {
     pub fn get_vesting_info(address: String) -> Self {
         ElysQuery::CommitmentVestingInfo{ address }
     }
-    pub fn get_sub_bucket_rewards_balance(address: String, denom: String, program: EarnType) -> Self {
+    pub fn get_sub_bucket_rewards_balance(address: String, denom: String, program: i32) -> Self {
         ElysQuery::CommitmentRewardsSubBucketBalanceOfDenom{ address, denom, program }
     }
 }

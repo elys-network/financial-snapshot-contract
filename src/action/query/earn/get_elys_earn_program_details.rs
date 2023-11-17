@@ -12,9 +12,9 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
     let resp = GetElysEarnProgramResp {
         data: match address {
             Some(addr) => {
-                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::ELYS_PROGRAM)?;
-                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::ELYS_PROGRAM)?;
-                let edenb_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::EdenBoost.as_str().to_string(), EarnType::ELYS_PROGRAM)?;
+                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::ElysProgram as i32)?;
+                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::ElysProgram as i32)?;
+                let edenb_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::EdenBoost.as_str().to_string(), EarnType::ElysProgram as i32)?;
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
                 let staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 
