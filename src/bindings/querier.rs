@@ -11,7 +11,7 @@ use super::{
         QueryVestingInfoResponse},
 };
 
-use crate::types::{BalanceAvailable, BalanceBorrowed, EarnType};
+use crate::types::{BalanceAvailable, BalanceBorrowed};
 
 #[allow(dead_code)]
 pub struct ElysQuerier<'a> {
