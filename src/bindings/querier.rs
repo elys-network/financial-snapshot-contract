@@ -8,7 +8,8 @@ use super::{
         QueryShowCommitmentsResponse, 
         QueryStakedPositionResponse,
         QueryUnstakedPositionResponse,
-        QueryVestingInfoResponse},
+        QueryVestingInfoResponse,
+        StakedAvailable},
 };
 
 use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
@@ -34,13 +35,13 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
+    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<StakedAvailable> {
         let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
             address: address.to_owned(),
             denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
-        let resp: BalanceAvailable = self.querier.query(&request)?;
+        let resp: StakedAvailable = self.querier.query(&request)?;
         Ok(resp)
     }
 
