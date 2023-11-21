@@ -11,7 +11,7 @@ use super::{
         QueryVestingInfoResponse},
 };
 
-use crate::types::{BalanceAvailable, BalanceBorrowed, EarnType};
+use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
 
 #[allow(dead_code)]
 pub struct ElysQuerier<'a> {
@@ -30,6 +30,16 @@ impl<'a> ElysQuerier<'a> {
             denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(balance_query);
+        let resp: BalanceAvailable = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
+        let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
+            address: address.to_owned(),
+            denom: denom.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
         let resp: BalanceAvailable = self.querier.query(&request)?;
         Ok(resp)
     }
@@ -79,16 +89,6 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
-        let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
-            address: address.to_owned(),
-            denom: denom.to_owned(),
-        };
-        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
-        let resp: BalanceAvailable = self.querier.query(&request)?;
-        Ok(resp)
-    }
-
     pub fn get_rewards_balance(&self, address: String, denom: String) -> StdResult<BalanceAvailable> {
         let rewards_balance_query = ElysQuery::CommitmentRewardsBalanceOfDenom{
             address: address.to_owned(),
@@ -135,7 +135,7 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_sub_bucket_rewards_balance(&self, address: String, denom: String, program: EarnType) -> StdResult<BalanceAvailable> {
+    pub fn get_sub_bucket_rewards_balance(&self, address: String, denom: String, program: i32) -> StdResult<BalanceAvailable> {
         let sub_bucket_reward_query = ElysQuery::CommitmentRewardsSubBucketBalanceOfDenom{
             address: address.to_owned(),
             denom: denom.to_owned(),
@@ -146,4 +146,13 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
+    pub fn get_incentive_apr(&self, program: i32, denom: String, ) -> StdResult<QueryAprResponse> {
+        let incentive_apr_query = ElysQuery::IncentiveApr{
+            withdraw_type: program.to_owned(),
+            denom: denom.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(incentive_apr_query);
+        let resp: QueryAprResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
 }

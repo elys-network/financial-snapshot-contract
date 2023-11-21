@@ -45,15 +45,8 @@ pub use liquidity_position::liquidity_position::LiquidityPosition;
 
 pub mod earn_detail {
     pub mod earn_detail;
-    mod impls {
-        mod eden_dummy;
-        mod edenb_dummy;
-        mod elys_dummy;
-        mod usdc_dummy;
-        mod validators_dummy;
-    }
 }
-pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, StakingValidator, ValidatorDetail};
+pub use earn_detail::earn_detail::{AprUsdc, AprElys, BalanceBorrowed, BalanceAvailable, BalanceReward, StakedPosition, UnstakedPosition, VestingDetail, StakingValidator, ValidatorDetail, QueryAprResponse};
 
 pub mod earn_program {
     pub mod eden_boost_earn;

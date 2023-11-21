@@ -9,19 +9,22 @@ pub fn get_eden_boost_earn_program_details(deps: Deps<ElysQuery>, address: Optio
     }
 
     let querier = ElysQuerier::new(&deps.querier);
+    let usdc_apr = querier.get_incentive_apr(EarnType::EdenBProgram as i32, ElysDenom::Usdc.as_str().to_string())?;
+    let eden_apr = querier.get_incentive_apr(EarnType::EdenBProgram as i32, ElysDenom::Eden.as_str().to_string())?;
+
     let resp = GetEdenBoostEarnProgramResp {
         data: match address {
             Some(addr) => {
-                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::EDENB_PROGRAM)?;
-                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::EDENB_PROGRAM)?;
+                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::EdenBProgram as i32)?;
+                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::EdenBProgram as i32)?;
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
                 let staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
 
                 EdenBoostEarnProgram {
                     bonding_period: 0,
                     apr: AprUsdc {
-                        uusdc: 70,
-                        ueden: 80,
+                        uusdc: usdc_apr.apr.to_owned(),
+                        ueden: eden_apr.apr.to_owned(),
                     },
                     available: Some(available.amount),
                     staked: Some(staked.amount),
@@ -43,8 +46,8 @@ pub fn get_eden_boost_earn_program_details(deps: Deps<ElysQuery>, address: Optio
                 EdenBoostEarnProgram {
                     bonding_period: 90,
                     apr: AprUsdc {
-                        uusdc: 70,
-                        ueden: 80,
+                        uusdc: usdc_apr.apr.to_owned(),
+                        ueden: eden_apr.apr.to_owned(),
                     },
                     available: None,
                     staked: None,

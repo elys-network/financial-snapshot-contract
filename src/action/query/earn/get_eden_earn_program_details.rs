@@ -9,12 +9,16 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
     }
 
     let querier = ElysQuerier::new(&deps.querier);
+    let usdc_apr = querier.get_incentive_apr(EarnType::EdenProgram as i32, ElysDenom::Usdc.as_str().to_string())?;
+    let eden_apr = querier.get_incentive_apr(EarnType::EdenProgram as i32, ElysDenom::Eden.as_str().to_string())?;
+    let edenb_apr = querier.get_incentive_apr(EarnType::EdenProgram as i32, ElysDenom::EdenBoost.as_str().to_string())?;
+
     let resp = GetEdenEarnProgramResp {
         data: match address {
             Some(addr) => {
-                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::EDEN_PROGRAM)?;
-                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::EDEN_PROGRAM)?;
-                let edenb_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::EdenBoost.as_str().to_string(), EarnType::EDEN_PROGRAM)?;
+                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::EdenProgram as i32)?;
+                let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::EdenProgram as i32)?;
+                let edenb_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::EdenBoost.as_str().to_string(), EarnType::EdenProgram as i32)?;
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
                 let staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 let vesting_info = querier.get_vesting_info(addr.clone())?;
@@ -22,9 +26,9 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 EdenEarnProgram {
                     bonding_period: 90,
                     apr: AprElys {
-                        uusdc: 70,
-                        ueden: 80,
-                        uedenb: 100,
+                        uusdc: usdc_apr.apr,
+                        ueden: eden_apr.apr,
+                        uedenb: edenb_apr.apr,
                     },
                     available: Some(available),
                     staked: Some(staked),
@@ -53,9 +57,9 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 EdenEarnProgram {
                     bonding_period: 90,
                     apr: AprElys {
-                        uusdc: 70,
-                        ueden: 80,
-                        uedenb: 100,
+                        uusdc: usdc_apr.apr,
+                        ueden: eden_apr.apr,
+                        uedenb: edenb_apr.apr,
                     },
                     available: None,
                     staked: None,

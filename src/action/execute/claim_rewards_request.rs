@@ -7,12 +7,10 @@ pub fn claim_rewards_request(
     _info: MessageInfo,
     _deps: DepsMut<ElysQuery>,
     delegator_address: String,
-    denom: String,
     withdraw_type: EarnType,
 ) -> Result<Response<ElysMsg>, ContractError> {
     let msg = ElysMsg::withdraw_rewards(
         delegator_address,
-        denom,
         withdraw_type,
     );
 

@@ -84,8 +84,13 @@ pub struct VestingTokens {
 pub struct Commitments {
 	pub creator: String,
 	pub committed_tokens: Option<Vec<CommittedTokens>>,
-	pub rewards_unclaimed: Option<Vec<RewardsUnclaimed>>,
+	pub rewards_unclaimed: Option<Vec<Coin>>,
+	pub claimed: Option<Vec<Coin>>,
 	pub vesting_tokens: Option<Vec<VestingTokens>>,
+	pub rewards_by_elys_unclaimed: Option<Vec<Coin>>,
+	pub rewards_by_eden_unclaimed: Option<Vec<Coin>>,
+	pub rewards_by_edenb_unclaimed: Option<Vec<Coin>>,
+	pub rewards_by_usdc_unclaimed: Option<Vec<Coin>>,
 }
 
 #[cw_serde]

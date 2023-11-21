@@ -41,13 +41,11 @@ pub enum ElysMsg {
     },
     IncentiveWithdrawRewards {
         delegator_address: String,
-        denom:            String,
-        withdraw_type: EarnType,
+        withdraw_type: i32,
     },
     IncentiveWithdrawValidatorCommission {
         delegator_address: String,
         validator_address: String,
-        denom:            String,
     }
 }
 
@@ -81,10 +79,10 @@ impl ElysMsg {
     }
 
     pub fn begin_redelegate(
-        delegator_address:    String,
+        delegator_address: String,
         validator_src_address: String,
         validator_dst_address: String,
-        amount:              Coin,
+        amount: Coin,
     ) -> Self {
         Self::IncentiveBeginRedelegate {
             delegator_address: delegator_address.to_owned(),
@@ -115,8 +113,8 @@ impl ElysMsg {
     ) -> Self {
         Self::CommitmentVest {
             creator: creator.to_owned(),
-            amount:  amount,
-            denom:   denom.to_owned(),
+            amount: amount,
+            denom: denom.to_owned(),
         }
     }    
     
@@ -127,32 +125,28 @@ impl ElysMsg {
     ) -> Self {
         Self::CommitmentCancelVest {
             creator: creator.to_owned(),
-            amount:  amount,
-            denom:   denom.to_owned(),
+            amount: amount,
+            denom: denom.to_owned(),
         }
     }
         
     pub fn withdraw_rewards(
         delegator_address: String,
-        denom:            String,
         witdhraw_type: EarnType,
     ) -> Self {
         Self::IncentiveWithdrawRewards {
             delegator_address: delegator_address.to_owned(),
-            denom: denom.to_owned(),
-            withdraw_type: witdhraw_type.to_owned(),
+            withdraw_type: witdhraw_type as i32,
         }
     }
 
     pub fn withdraw_validator_commissions(
         delegator_address: String,
         validator_address: String,
-        denom:            String,
     ) -> Self {
         Self::IncentiveWithdrawValidatorCommission {
             delegator_address: delegator_address.to_owned(),
             validator_address: validator_address.to_owned(),
-            denom: denom.to_owned(),
         }
     }
 }
