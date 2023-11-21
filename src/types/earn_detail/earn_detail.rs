@@ -3,15 +3,15 @@ use cosmwasm_std::{Decimal, Uint128};
 
 #[cw_serde]
 pub struct AprUsdc {
-    pub uusdc: u64,
-    pub ueden: u64,
+    pub uusdc: Uint128,
+    pub ueden: Uint128,
 }
 
 #[cw_serde]
 pub struct AprElys {
-    pub uusdc: u64,
-    pub ueden: u64,
-    pub uedenb: u64,
+    pub uusdc: Uint128,
+    pub ueden: Uint128,
+    pub uedenb: Uint128,
 }
 
 #[cw_serde]
@@ -24,6 +24,11 @@ pub struct BalanceBorrowed {
 pub struct BalanceAvailable {
     pub amount: Uint128,
     pub usd_amount: Decimal,
+}
+
+#[cw_serde]
+pub struct QueryAprResponse {
+    pub apr: Uint128,
 }
 
 #[cw_serde]

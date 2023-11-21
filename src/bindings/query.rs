@@ -1,6 +1,6 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
-use crate::types::{BalanceAvailable, BalanceBorrowed};
+use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
 
 #[allow(unused_imports)]
 use cosmwasm_schema::{cw_serde, QueryResponses};
@@ -34,7 +34,9 @@ pub enum ElysQuery {
     #[returns(QueryVestingInfoResponse)]
     CommitmentVestingInfo{ address: String },
     #[returns(BalanceAvailable)]
-    CommitmentRewardsSubBucketBalanceOfDenom{ address: String, denom: String, program: i32}
+    CommitmentRewardsSubBucketBalanceOfDenom{ address: String, denom: String, program: i32},
+    #[returns(QueryAprResponse)]
+    IncentiveApr{withdraw_type: i32, denom: String}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -77,5 +79,8 @@ impl ElysQuery {
     }
     pub fn get_sub_bucket_rewards_balance(address: String, denom: String, program: i32) -> Self {
         ElysQuery::CommitmentRewardsSubBucketBalanceOfDenom{ address, denom, program }
+    }
+    pub fn get_incentive_apr(program: i32, denom: String) -> Self {
+        ElysQuery::IncentiveApr{ withdraw_type: program, denom }
     }
 }

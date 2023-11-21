@@ -9,6 +9,10 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
     }
 
     let querier = ElysQuerier::new(&deps.querier);
+    let usdc_apr = querier.get_incentive_apr(EarnType::EdenProgram as i32, ElysDenom::Usdc.as_str().to_string())?;
+    let eden_apr = querier.get_incentive_apr(EarnType::EdenProgram as i32, ElysDenom::Eden.as_str().to_string())?;
+    let edenb_apr = querier.get_incentive_apr(EarnType::EdenProgram as i32, ElysDenom::EdenBoost.as_str().to_string())?;
+
     let resp = GetEdenEarnProgramResp {
         data: match address {
             Some(addr) => {
@@ -22,9 +26,9 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 EdenEarnProgram {
                     bonding_period: 90,
                     apr: AprElys {
-                        uusdc: 70,
-                        ueden: 80,
-                        uedenb: 100,
+                        uusdc: usdc_apr.apr,
+                        ueden: eden_apr.apr,
+                        uedenb: edenb_apr.apr,
                     },
                     available: Some(available),
                     staked: Some(staked),
@@ -53,9 +57,9 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 EdenEarnProgram {
                     bonding_period: 90,
                     apr: AprElys {
-                        uusdc: 70,
-                        ueden: 80,
-                        uedenb: 100,
+                        uusdc: usdc_apr.apr,
+                        ueden: eden_apr.apr,
+                        uedenb: edenb_apr.apr,
                     },
                     available: None,
                     staked: None,
