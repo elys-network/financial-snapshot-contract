@@ -41,13 +41,11 @@ pub enum ElysMsg {
     },
     IncentiveWithdrawRewards {
         delegator_address: String,
-        denom: String,
         withdraw_type: i32,
     },
     IncentiveWithdrawValidatorCommission {
         delegator_address: String,
         validator_address: String,
-        denom: String,
     }
 }
 
@@ -134,12 +132,10 @@ impl ElysMsg {
         
     pub fn withdraw_rewards(
         delegator_address: String,
-        denom: String,
         witdhraw_type: EarnType,
     ) -> Self {
         Self::IncentiveWithdrawRewards {
             delegator_address: delegator_address.to_owned(),
-            denom: denom.to_owned(),
             withdraw_type: witdhraw_type as i32,
         }
     }
@@ -147,12 +143,10 @@ impl ElysMsg {
     pub fn withdraw_validator_commissions(
         delegator_address: String,
         validator_address: String,
-        denom: String,
     ) -> Self {
         Self::IncentiveWithdrawValidatorCommission {
             delegator_address: delegator_address.to_owned(),
             validator_address: validator_address.to_owned(),
-            denom: denom.to_owned(),
         }
     }
 }

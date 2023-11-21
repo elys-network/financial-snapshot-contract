@@ -40,12 +40,10 @@ pub enum ExecuteMsg {
     },
     ClaimRewardsRequest {
         delegator_address: String,
-        denom:            String,
         withdraw_type: EarnType,
     },
     ClaimValidatorCommissionRequest {
         delegator_address: String,
         validator_address: String,
-        denom:            String,
     }
 }
