@@ -24,7 +24,7 @@ pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let borrowed = querier.get_borrowed_balance(addr.clone())?;
 
                 UsdcEarnProgram {
-                    bonding_period: 90,
+                    bonding_period: 1,
                     apr: AprUsdc {
                         uusdc: usdc_apr.apr.to_owned(),
                         ueden: eden_apr.apr.to_owned(),

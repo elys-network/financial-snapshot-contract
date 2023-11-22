@@ -24,7 +24,7 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let vesting_info = querier.get_vesting_info(addr.clone())?;
 
                 EdenEarnProgram {
-                    bonding_period: 90,
+                    bonding_period: 0,
                     apr: AprElys {
                         uusdc: usdc_apr.apr,
                         ueden: eden_apr.apr,

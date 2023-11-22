@@ -27,7 +27,7 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let unstaked_positions = querier.get_unstaked_positions(addr.clone())?;
 
                 ElysEarnProgram {
-                    bonding_period: 90,
+                    bonding_period: 14,
                     apr: AprElys {
                         uusdc: usdc_apr.apr,
                         ueden: eden_apr.apr,
