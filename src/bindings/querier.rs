@@ -1,4 +1,4 @@
-use cosmwasm_std::{QuerierWrapper, QueryRequest, StdResult};
+use cosmwasm_std::{QuerierWrapper, QueryRequest, StdResult, Decimal, Coin};
 
 use super::{
     query::ElysQuery,
@@ -154,6 +154,15 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(incentive_apr_query);
         let resp: QueryAprResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_amm_price_by_denom(&self, token_in: Coin ) -> StdResult<Decimal> {
+        let amm_price_query = ElysQuery::AmmPriceByDenom{
+            token_in: token_in.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(amm_price_query);
+        let resp: Decimal = self.querier.query(&request)?;
         Ok(resp)
     }
 }
