@@ -1,5 +1,5 @@
 use cosmwasm_schema::cw_serde;
-use cosmwasm_std::{Coin, Decimal, Int128};
+use cosmwasm_std::{Coin, Decimal, Int128, Uint128};
 use crate::types::{ValidatorDetail, StakedPosition, UnstakedPosition, BalanceAvailable, VestingDetail};
 
 #[cw_serde]
@@ -112,4 +112,25 @@ pub struct QueryUnstakedPositionResponse {
 pub struct QueryVestingInfoResponse {
 	pub vesting: BalanceAvailable,
 	pub vesting_details: Option<Vec<VestingDetail>>,
+}
+
+#[cw_serde]
+pub struct StakedAvailable {
+	pub usd_amount: Decimal,
+	pub amount: Uint128,
+	pub lockups: Option<Vec<Lockup>>,
+}
+
+#[cw_serde]
+pub struct Price {
+	pub asset: String,
+	pub price: Decimal,
+	pub source: String,
+	pub provider: String,
+	pub timestamp: u64,
+}
+
+#[cw_serde]
+pub struct QueryGetPriceResponse {
+	pub price: Price,
 }

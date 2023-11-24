@@ -4,7 +4,7 @@ use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
 
 #[allow(unused_imports)]
 use cosmwasm_schema::{cw_serde, QueryResponses};
-use cosmwasm_std::CustomQuery;
+use cosmwasm_std::{CustomQuery, Decimal, Coin};
 
 #[cw_serde]
 #[derive(QueryResponses)]
@@ -36,7 +36,11 @@ pub enum ElysQuery {
     #[returns(BalanceAvailable)]
     CommitmentRewardsSubBucketBalanceOfDenom{ address: String, denom: String, program: i32},
     #[returns(QueryAprResponse)]
-    IncentiveApr{withdraw_type: i32, denom: String}
+    IncentiveApr{withdraw_type: i32, denom: String},
+    #[returns(Decimal)]
+    AmmPriceByDenom{token_in: Coin},
+    #[returns(QueryGetPriceResponse)]
+    OraclePrice{asset: String, source: String, timestamp: u64}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -82,5 +86,11 @@ impl ElysQuery {
     }
     pub fn get_incentive_apr(program: i32, denom: String) -> Self {
         ElysQuery::IncentiveApr{ withdraw_type: program, denom }
+    }
+    pub fn get_amm_price_by_denom(token_in: Coin) -> Self {
+        ElysQuery::AmmPriceByDenom{ token_in }
+    }
+    pub fn get_oracle_price(asset: String, source: String, timestamp: u64) -> Self {
+        ElysQuery::OraclePrice{ asset, source, timestamp }
     }
 }

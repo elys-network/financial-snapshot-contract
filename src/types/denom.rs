@@ -10,6 +10,8 @@ pub enum ElysDenom {
     EdenBoost,
     // Usdc
     Usdc,
+    // USDC
+    USDC,
 }
 
 impl ElysDenom {
@@ -19,6 +21,7 @@ impl ElysDenom {
             ElysDenom::Eden => "ueden",
             ElysDenom::EdenBoost => "uedenb",
             ElysDenom::Usdc => "uusdc",
+            ElysDenom::USDC => "USDC",
         }
     }
 }

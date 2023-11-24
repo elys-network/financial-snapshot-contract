@@ -1,4 +1,4 @@
-use cosmwasm_std::{QuerierWrapper, QueryRequest, StdResult};
+use cosmwasm_std::{QuerierWrapper, QueryRequest, StdResult, Decimal, Coin};
 
 use super::{
     query::ElysQuery,
@@ -8,7 +8,9 @@ use super::{
         QueryShowCommitmentsResponse, 
         QueryStakedPositionResponse,
         QueryUnstakedPositionResponse,
-        QueryVestingInfoResponse},
+        QueryVestingInfoResponse,
+        StakedAvailable,
+        QueryGetPriceResponse},
 };
 
 use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
@@ -34,13 +36,13 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<BalanceAvailable> {
+    pub fn get_staked_balance(&self, address: String, denom: String)-> StdResult<StakedAvailable> {
         let staked_balance_query = ElysQuery::CommitmentStakedBalanceOfDenom{
             address: address.to_owned(),
             denom: denom.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(staked_balance_query);
-        let resp: BalanceAvailable = self.querier.query(&request)?;
+        let resp: StakedAvailable = self.querier.query(&request)?;
         Ok(resp)
     }
 
@@ -153,6 +155,26 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(incentive_apr_query);
         let resp: QueryAprResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_amm_price_by_denom(&self, token_in: Coin ) -> StdResult<Decimal> {
+        let amm_price_query = ElysQuery::AmmPriceByDenom{
+            token_in: token_in.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(amm_price_query);
+        let resp: Decimal = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_oracle_price(&self, asset: String, source: String, timestamp: u64 ) -> StdResult<QueryGetPriceResponse> {
+        let oracle_price_query = ElysQuery::OraclePrice{
+            asset: asset.to_owned(),
+            source: source.to_owned(),
+            timestamp: timestamp.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(oracle_price_query);
+        let resp: QueryGetPriceResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }

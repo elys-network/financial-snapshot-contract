@@ -1,4 +1,5 @@
 use crate::types::{BalanceAvailable, BalanceReward, AprElys, StakedPosition, UnstakedPosition};
+use crate::bindings::query_resp::StakedAvailable;
 
 use cosmwasm_schema::cw_serde;
 
@@ -13,7 +14,7 @@ pub struct ElysEarnProgram {
     pub available: Option<BalanceAvailable>,
     // it should return how much Elys the user has staked in this program ONLY.
     // it should only be included if address is in the request object.
-    pub staked: Option<BalanceAvailable>,
+    pub staked: Option<StakedAvailable>,
     // The rewards the user currently has on the Elys Earn Program.
     // It should be in the response only if the address is in the request object.
     // rewards are either USDC, EDEN or EDEN Boost.
