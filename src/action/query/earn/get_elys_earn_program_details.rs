@@ -1,6 +1,6 @@
 use super::*;
 use crate::{bindings::{query::ElysQuery, querier::ElysQuerier}, msg::query_resp::earn::GetElysEarnProgramResp};
-use crate::types::{earn_program::elys_earn::ElysEarnProgram, ElysDenom, BalanceReward, AprElys, EarnType};
+use crate::types::{earn_program::elys_earn::ElysEarnProgram, ElysDenom, BalanceReward, AprElys, EarnType, StakedPosition, UnstakedPosition};
 use cosmwasm_std::{coin, Decimal, Uint128};
 
 pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetElysEarnProgramResp, ContractError> {
@@ -24,8 +24,8 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let mut available = querier.get_balance(addr.clone(), asset.clone())?;
                 let mut staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 
-                let staked_positions = querier.get_staked_positions(addr.clone())?;
-                let unstaked_positions = querier.get_unstaked_positions(addr.clone())?;
+                let mut staked_positions = querier.get_staked_positions(addr.clone())?;
+                let mut unstaked_positions = querier.get_unstaked_positions(addr.clone())?;
 
                 let usdc_usd_price = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
 
@@ -45,6 +45,40 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 staked_in_usd = staked_in_usd.checked_div(usdc_usd_price).unwrap();
                 staked.usd_amount = staked_in_usd;
               
+                let new_staked_position = match staked_positions.staked_position {
+                    Some(staked_positions) => {
+                        let mut new_staked_positions: Vec<StakedPosition> = Vec::new();
+                        for mut s in staked_positions {
+                            s.staked.usd_amount = s.staked.usd_amount.checked_mul(elys_price_in_usd).unwrap();
+                            s.staked.usd_amount = s.staked.usd_amount.checked_div(usdc_usd_price).unwrap();
+                            new_staked_positions.push(s)
+                        }
+                    
+                        new_staked_positions
+                    },
+                    None => vec![],
+                };
+
+                staked_positions.staked_position = Some(new_staked_position);
+
+                let new_unstaked_position = match unstaked_positions.unstaked_position {
+                    Some(unstaked_positions) => {
+                        let mut new_unstaked_positions: Vec<UnstakedPosition> = Vec::new();
+                        for mut s in unstaked_positions {
+                            s.unstaked.usd_amount = s.unstaked.usd_amount.checked_mul(elys_price_in_usd).unwrap();
+                            s.unstaked.usd_amount = s.unstaked.usd_amount.checked_div(usdc_usd_price).unwrap();
+
+                            s.remaining_time = s.remaining_time*1000;
+                            new_unstaked_positions.push(s)
+                        }
+                    
+                        new_unstaked_positions
+                    },
+                    None => vec![],
+                };
+
+                unstaked_positions.unstaked_position = Some(new_unstaked_position);
+
                 ElysEarnProgram {
                     bonding_period: 14,
                     apr: AprElys {
