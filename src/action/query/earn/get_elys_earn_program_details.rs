@@ -27,22 +27,22 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let staked_positions = querier.get_staked_positions(addr.clone())?;
                 let unstaked_positions = querier.get_unstaked_positions(addr.clone())?;
 
-                let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                let usdc_usd_price = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
+
+                let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_div(usdc_usd_price).unwrap();
+                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()))?;
 
                 // have value in usd
-                let mut eden_rewards_in_usd = querier.get_amm_price_by_denom(coin(eden_rewards.amount.u128().clone(), ElysDenom::Elys.as_str().to_string()))?;
-                eden_rewards_in_usd = eden_rewards_in_usd.checked_mul(Decimal::from_atomics(eden_rewards.amount, 0).unwrap()).unwrap();
-                eden_rewards_in_usd = eden_rewards_in_usd.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                let mut eden_rewards_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(eden_rewards.amount, 0).unwrap()).unwrap();
+                eden_rewards_in_usd = eden_rewards_in_usd.checked_div(usdc_usd_price).unwrap();
 
                 // have value in usd
-                let mut available_in_usd = querier.get_amm_price_by_denom(coin(available.amount.u128().clone(), ElysDenom::Elys.as_str().to_string()))?;
-                available_in_usd = available_in_usd.checked_mul(Decimal::from_atomics(available.amount, 0).unwrap()).unwrap();
-                available_in_usd = available_in_usd.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                let mut available_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(available.amount, 0).unwrap()).unwrap();
+                available_in_usd = available_in_usd.checked_div(usdc_usd_price).unwrap();
                 available.usd_amount = available_in_usd;
 
-                let mut staked_in_usd = querier.get_amm_price_by_denom(coin(staked.amount.u128().clone(), ElysDenom::Elys.as_str().to_string()))?;
-                staked_in_usd = staked_in_usd.checked_mul(Decimal::from_atomics(staked.amount, 0).unwrap()).unwrap();
-                staked_in_usd = staked_in_usd.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                let mut staked_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(staked.amount, 0).unwrap()).unwrap();
+                staked_in_usd = staked_in_usd.checked_div(usdc_usd_price).unwrap();
                 staked.usd_amount = staked_in_usd;
               
                 ElysEarnProgram {

@@ -22,12 +22,14 @@ pub fn get_eden_boost_earn_program_details(deps: Deps<ElysQuery>, address: Optio
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
                 let staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 
+                let usdc_usd_price = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
+                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()))?;
+
                 // have value in usd
-                let mut eden_rewards_in_usd = querier.get_amm_price_by_denom(coin(eden_rewards.amount.u128().clone(), ElysDenom::Elys.as_str().to_string()))?;
-                eden_rewards_in_usd = eden_rewards_in_usd.checked_mul(Decimal::from_atomics(eden_rewards.amount, 0).unwrap()).unwrap();
-                eden_rewards_in_usd = eden_rewards_in_usd.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                let mut eden_rewards_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(eden_rewards.amount, 0).unwrap()).unwrap();
+                eden_rewards_in_usd = eden_rewards_in_usd.checked_div(usdc_usd_price).unwrap();
                 
-                let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_div(usdc_usd_price).unwrap();
 
                 EdenBoostEarnProgram {
                     bonding_period: 0,
