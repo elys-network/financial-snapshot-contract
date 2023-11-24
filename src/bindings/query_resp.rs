@@ -120,3 +120,17 @@ pub struct StakedAvailable {
 	pub amount: Uint128,
 	pub lockups: Option<Vec<Lockup>>,
 }
+
+#[cw_serde]
+pub struct Price {
+	pub asset: String,
+	pub price: Decimal,
+	pub source: String,
+	pub provider: String,
+	pub timestamp: u64,
+}
+
+#[cw_serde]
+pub struct QueryGetPriceResponse {
+	pub price: Price,
+}

@@ -38,7 +38,9 @@ pub enum ElysQuery {
     #[returns(QueryAprResponse)]
     IncentiveApr{withdraw_type: i32, denom: String},
     #[returns(Decimal)]
-    AmmPriceByDenom{token_in: Coin}
+    AmmPriceByDenom{token_in: Coin},
+    #[returns(QueryGetPriceResponse)]
+    OraclePrice{asset: String, source: String, timestamp: u64}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -87,5 +89,8 @@ impl ElysQuery {
     }
     pub fn get_amm_price_by_denom(token_in: Coin) -> Self {
         ElysQuery::AmmPriceByDenom{ token_in }
+    }
+    pub fn get_oracle_price(asset: String, source: String, timestamp: u64) -> Self {
+        ElysQuery::OraclePrice{ asset, source, timestamp }
     }
 }

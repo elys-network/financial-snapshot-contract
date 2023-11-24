@@ -27,22 +27,23 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let mut staked_positions = querier.get_staked_positions(addr.clone())?;
                 let mut unstaked_positions = querier.get_unstaked_positions(addr.clone())?;
 
-                let usdc_usd_price = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
-
-                let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_div(usdc_usd_price).unwrap();
+                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "".to_string(), 0)?;
+                let usdc_usd_price = usdc_oracle_price.price.price.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
+                
+                let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_mul(usdc_usd_price).unwrap();
                 let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()))?;
 
                 // have value in usd
                 let mut eden_rewards_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(eden_rewards.amount, 0).unwrap()).unwrap();
-                eden_rewards_in_usd = eden_rewards_in_usd.checked_div(usdc_usd_price).unwrap();
+                eden_rewards_in_usd = eden_rewards_in_usd.checked_mul(usdc_usd_price).unwrap();
 
                 // have value in usd
                 let mut available_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(available.amount, 0).unwrap()).unwrap();
-                available_in_usd = available_in_usd.checked_div(usdc_usd_price).unwrap();
+                available_in_usd = available_in_usd.checked_mul(usdc_usd_price).unwrap();
                 available.usd_amount = available_in_usd;
 
                 let mut staked_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(staked.amount, 0).unwrap()).unwrap();
-                staked_in_usd = staked_in_usd.checked_div(usdc_usd_price).unwrap();
+                staked_in_usd = staked_in_usd.checked_mul(usdc_usd_price).unwrap();
                 staked.usd_amount = staked_in_usd;
               
                 let new_staked_position = match staked_positions.staked_position {
@@ -50,7 +51,7 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                         let mut new_staked_positions: Vec<StakedPosition> = Vec::new();
                         for mut s in staked_positions {
                             s.staked.usd_amount = s.staked.usd_amount.checked_mul(elys_price_in_usd).unwrap();
-                            s.staked.usd_amount = s.staked.usd_amount.checked_div(usdc_usd_price).unwrap();
+                            s.staked.usd_amount = s.staked.usd_amount.checked_mul(usdc_usd_price).unwrap();
                             new_staked_positions.push(s)
                         }
                     
@@ -66,7 +67,7 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                         let mut new_unstaked_positions: Vec<UnstakedPosition> = Vec::new();
                         for mut s in unstaked_positions {
                             s.unstaked.usd_amount = s.unstaked.usd_amount.checked_mul(elys_price_in_usd).unwrap();
-                            s.unstaked.usd_amount = s.unstaked.usd_amount.checked_div(usdc_usd_price).unwrap();
+                            s.unstaked.usd_amount = s.unstaked.usd_amount.checked_mul(usdc_usd_price).unwrap();
 
                             s.remaining_time = s.remaining_time*1000;
                             new_unstaked_positions.push(s)

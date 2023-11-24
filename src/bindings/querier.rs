@@ -9,7 +9,8 @@ use super::{
         QueryStakedPositionResponse,
         QueryUnstakedPositionResponse,
         QueryVestingInfoResponse,
-        StakedAvailable},
+        StakedAvailable,
+        QueryGetPriceResponse},
 };
 
 use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
@@ -163,6 +164,17 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(amm_price_query);
         let resp: Decimal = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_oracle_price(&self, asset: String, source: String, timestamp: u64 ) -> StdResult<QueryGetPriceResponse> {
+        let oracle_price_query = ElysQuery::OraclePrice{
+            asset: asset.to_owned(),
+            source: source.to_owned(),
+            timestamp: timestamp.to_owned(),
+        };
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(oracle_price_query);
+        let resp: QueryGetPriceResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }
