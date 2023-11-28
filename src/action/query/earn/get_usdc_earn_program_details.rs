@@ -1,5 +1,5 @@
 use super::*;
-use crate::{bindings::{query::ElysQuery, querier::ElysQuerier}, msg::query_resp::earn::GetUsdcEarnProgramResp};
+use crate::{bindings::{query::ElysQuery, querier::ElysQuerier, query_resp::Lockup}, msg::query_resp::earn::GetUsdcEarnProgramResp};
 use crate::types::{earn_program::usdc_earn::UsdcEarnProgram, ElysDenom};
 use crate::types::{BalanceReward, AprUsdc, EarnType};
 use cosmwasm_std::{coin, Decimal, Uint128};
@@ -39,8 +39,23 @@ pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 
                 let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_mul(usdc_usd_price).unwrap();
 
+                let new_lockups = match staked.lockups {
+                    Some(lockups) => {
+                        let mut new_lockups: Vec<Lockup> = Vec::new();
+                        for mut lockup in lockups {
+                            lockup.unlock_timestamp = lockup.unlock_timestamp*1000;
+                            new_lockups.push(lockup)
+                        }
+                    
+                        new_lockups
+                    },
+                    None => vec![],
+                };
+
+                staked.lockups = Some(new_lockups);
+
                 UsdcEarnProgram {
-                    bonding_period: 1,
+                    bonding_period: 0,
                     apr: AprUsdc {
                         uusdc: usdc_apr.apr.to_owned(),
                         ueden: eden_apr.apr.to_owned(),
