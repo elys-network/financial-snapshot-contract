@@ -1,6 +1,5 @@
 .env*
 target
 schema
-Cargo.lock
 artifacts
 .vscode/
