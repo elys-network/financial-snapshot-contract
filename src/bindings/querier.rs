@@ -13,7 +13,8 @@ use super::{
         QueryGetPriceResponse},
 };
 
-use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
+use crate::types::{BalanceBorrowed, QueryAprResponse};
+use elys_bindings::types::BalanceAvailable;
 
 #[allow(dead_code)]
 pub struct ElysQuerier<'a> {

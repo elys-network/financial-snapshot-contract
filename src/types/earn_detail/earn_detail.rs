@@ -1,5 +1,6 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Decimal, Uint128};
+use crate::types::BalanceAvailable;
 
 #[cw_serde]
 pub struct AprUsdc {
@@ -18,12 +19,6 @@ pub struct AprElys {
 pub struct BalanceBorrowed {
     pub usd_amount: Decimal,
     pub percentage: Decimal,
-}
-
-#[cw_serde]
-pub struct BalanceAvailable {
-    pub amount: Uint128,
-    pub usd_amount: Decimal,
 }
 
 #[cw_serde]

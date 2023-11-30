@@ -3,6 +3,7 @@ use super::query_resp::pod::*;
 #[allow(unused_imports)]
 use super::query_resp::earn::*;
 use cosmwasm_schema::{cw_serde, QueryResponses};
+#[allow(unused_imports)]
 use crate::bindings::query_resp::*;
 
 #[cw_serde]

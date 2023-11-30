@@ -1,9 +1,13 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
-use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
+#[allow(unused_imports)]
+use crate::types::{BalanceBorrowed, QueryAprResponse};
+#[allow(unused_imports)]
+use elys_bindings::types::BalanceAvailable;
 
 #[allow(unused_imports)]
 use cosmwasm_schema::{cw_serde, QueryResponses};
+#[allow(unused_imports)]
 use cosmwasm_std::{CustomQuery, Decimal, Coin};
 
 #[cw_serde]

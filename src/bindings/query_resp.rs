@@ -1,6 +1,7 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, Decimal, Int128, Uint128};
-use crate::types::{ValidatorDetail, StakedPosition, UnstakedPosition, BalanceAvailable, VestingDetail};
+use crate::types::{ValidatorDetail, StakedPosition, UnstakedPosition, VestingDetail};
+use elys_bindings::types::BalanceAvailable;
 
 #[cw_serde]
 pub struct QueryBalanceResponse {
