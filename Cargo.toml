@@ -15,11 +15,11 @@ schemars = "0.8.1"
 cosmwasm-schema = "1.1.4"
 cw-utils = "0.13"
 anyhow = "1"
-elys-bindings = { version = "0.5.0", git = "https://github.com/elys-network/bindings", branch = "feat/import-financial" }
+elys-bindings = { version = "0.6.0", git = "https://github.com/elys-network/bindings", tag = "v0.6.0" }
 
 [dev-dependencies]
 cw-multi-test = "0.13.4"
-elys-bindings = { version = "0.5.0", git = "https://github.com/elys-network/bindings", branch = "feat/import-financial", features = [
+elys-bindings = { version = "0.6.0", git = "https://github.com/elys-network/bindings", tag = "v0.6.0", features = [
     "testing",
 ] }
 
