@@ -1,9 +1,13 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
-use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
+#[allow(unused_imports)]
+use crate::types::{BalanceBorrowed, QueryAprResponse};
+#[allow(unused_imports)]
+use elys_bindings::types::BalanceAvailable;
 
 #[allow(unused_imports)]
 use cosmwasm_schema::{cw_serde, QueryResponses};
+#[allow(unused_imports)]
 use cosmwasm_std::{CustomQuery, Decimal, Coin};
 
 #[cw_serde]
@@ -38,7 +42,7 @@ pub enum ElysQuery {
     #[returns(QueryAprResponse)]
     IncentiveApr{withdraw_type: i32, denom: String},
     #[returns(Decimal)]
-    AmmPriceByDenom{token_in: Coin},
+    AmmPriceByDenom{token_in: Coin, discount: Decimal},
     #[returns(QueryGetPriceResponse)]
     OraclePrice{asset: String, source: String, timestamp: u64}
 }
@@ -87,8 +91,8 @@ impl ElysQuery {
     pub fn get_incentive_apr(program: i32, denom: String) -> Self {
         ElysQuery::IncentiveApr{ withdraw_type: program, denom }
     }
-    pub fn get_amm_price_by_denom(token_in: Coin) -> Self {
-        ElysQuery::AmmPriceByDenom{ token_in }
+    pub fn get_amm_price_by_denom(token_in: Coin, discount: Decimal) -> Self {
+        ElysQuery::AmmPriceByDenom{ token_in, discount }
     }
     pub fn get_oracle_price(asset: String, source: String, timestamp: u64) -> Self {
         ElysQuery::OraclePrice{ asset, source, timestamp }

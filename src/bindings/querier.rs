@@ -13,7 +13,8 @@ use super::{
         QueryGetPriceResponse},
 };
 
-use crate::types::{BalanceAvailable, BalanceBorrowed, QueryAprResponse};
+use crate::types::{BalanceBorrowed, QueryAprResponse};
+use elys_bindings::types::BalanceAvailable;
 
 #[allow(dead_code)]
 pub struct ElysQuerier<'a> {
@@ -158,9 +159,10 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_amm_price_by_denom(&self, token_in: Coin ) -> StdResult<Decimal> {
+    pub fn get_amm_price_by_denom(&self, token_in: Coin, discount: Decimal ) -> StdResult<Decimal> {
         let amm_price_query = ElysQuery::AmmPriceByDenom{
             token_in: token_in.to_owned(),
+            discount: discount.to_owned(),
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(amm_price_query);
         let resp: Decimal = self.querier.query(&request)?;

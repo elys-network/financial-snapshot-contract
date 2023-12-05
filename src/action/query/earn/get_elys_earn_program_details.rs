@@ -1,7 +1,8 @@
 use super::*;
 use crate::{bindings::{query::ElysQuery, querier::ElysQuerier}, msg::query_resp::earn::GetElysEarnProgramResp};
-use crate::types::{earn_program::elys_earn::ElysEarnProgram, ElysDenom, BalanceReward, AprElys, EarnType, StakedPosition, UnstakedPosition};
+use crate::types::{earn_program::elys_earn::ElysEarnProgram, ElysDenom, BalanceReward, AprElys, StakedPosition, UnstakedPosition};
 use cosmwasm_std::{coin, Decimal, Uint128};
+use elys_bindings::types::EarnType;
 
 pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetElysEarnProgramResp, ContractError> {
     let denom = ElysDenom::Elys.as_str();
@@ -27,11 +28,12 @@ pub fn get_elys_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let mut staked_positions = querier.get_staked_positions(addr.clone())?;
                 let mut unstaked_positions = querier.get_unstaked_positions(addr.clone())?;
 
-                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "".to_string(), 0)?;
+                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "elys".to_string(), 0)?;
                 let usdc_usd_price = usdc_oracle_price.price.price.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
                 
+                let discount = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
                 let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_mul(usdc_usd_price).unwrap();
-                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()))?;
+                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()), discount)?;
 
                 // have value in usd
                 let mut eden_rewards_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(eden_rewards.amount, 0).unwrap()).unwrap();

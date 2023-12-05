@@ -1,8 +1,9 @@
 use super::*;
-use crate::{bindings::{query::ElysQuery, querier::ElysQuerier}, msg::query_resp::earn::GetUsdcEarnProgramResp};
+use crate::{bindings::{query::ElysQuery, querier::ElysQuerier, query_resp::Lockup}, msg::query_resp::earn::GetUsdcEarnProgramResp};
 use crate::types::{earn_program::usdc_earn::UsdcEarnProgram, ElysDenom};
-use crate::types::{BalanceReward, AprUsdc, EarnType};
+use crate::types::{BalanceReward, AprUsdc};
 use cosmwasm_std::{coin, Decimal, Uint128};
+use elys_bindings::types::EarnType;
 
 pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<String>, asset: String) -> Result<GetUsdcEarnProgramResp, ContractError> {
     let denom = ElysDenom::Usdc.as_str();
@@ -19,10 +20,11 @@ pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
             Some(addr) => {
                 let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::UsdcProgram as i32)?;
                 let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::UsdcProgram as i32)?;
+                let discount = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
                 
-                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "".to_string(), 0)?;
+                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "elys".to_string(), 0)?;
                 let usdc_usd_price = usdc_oracle_price.price.price.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
-                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()))?;
+                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()), discount)?;
 
                 let mut available = querier.get_balance(addr.clone(), asset.clone())?;
                 available.usd_amount = available.usd_amount.checked_mul(usdc_usd_price).unwrap();
@@ -39,8 +41,23 @@ pub fn get_usdc_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 
                 let usdc_rewards_in_usd = usdc_rewards.usd_amount.checked_mul(usdc_usd_price).unwrap();
 
+                let new_lockups = match staked.lockups {
+                    Some(lockups) => {
+                        let mut new_lockups: Vec<Lockup> = Vec::new();
+                        for mut lockup in lockups {
+                            lockup.unlock_timestamp = lockup.unlock_timestamp*1000;
+                            new_lockups.push(lockup)
+                        }
+                    
+                        new_lockups
+                    },
+                    None => vec![],
+                };
+
+                staked.lockups = Some(new_lockups);
+
                 UsdcEarnProgram {
-                    bonding_period: 1,
+                    bonding_period: 0,
                     apr: AprUsdc {
                         uusdc: usdc_apr.apr.to_owned(),
                         ueden: eden_apr.apr.to_owned(),
