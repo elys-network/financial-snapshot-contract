@@ -24,13 +24,15 @@ pub fn get_eden_earn_program_details(deps: Deps<ElysQuery>, address: Option<Stri
                 let mut available = querier.get_balance(addr.clone(), asset.clone())?;
                 let mut staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 let mut vesting_info = querier.get_vesting_info(addr.clone())?;
-
-                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "".to_string(), 0)?;
+                
+                let discount = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
+                
+                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "elys".to_string(), 0)?;
                 let usdc_usd_price = usdc_oracle_price.price.price.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
                 
                 // have value in usd
-                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()))?;
-                
+                let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()), discount)?;
+  
                 let mut staked_in_usd = elys_price_in_usd.checked_mul(Decimal::from_atomics(staked.amount, 0).unwrap()).unwrap();
                 staked_in_usd = staked_in_usd.checked_mul(usdc_usd_price).unwrap();
                 staked.usd_amount = staked_in_usd;
