@@ -1,6 +1,6 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, Decimal, Int128, Uint128};
-use crate::types::{ValidatorDetail, StakedPosition, UnstakedPosition, VestingDetail};
+use crate::types::{ValidatorDetail, StakedPosition, UnstakedPosition, VestingDetail, Pool, PageResponse};
 use elys_bindings::types::BalanceAvailable;
 
 #[cw_serde]
@@ -134,4 +134,10 @@ pub struct Price {
 #[cw_serde]
 pub struct QueryGetPriceResponse {
 	pub price: Price,
+}
+
+#[cw_serde]
+pub struct QueryAllPoolResponse {
+	pub pool: Option<Vec<Pool>>,
+	pub pagination: Option<PageResponse>,
 }

@@ -10,10 +10,11 @@ use super::{
         QueryUnstakedPositionResponse,
         QueryVestingInfoResponse,
         StakedAvailable,
-        QueryGetPriceResponse},
+        QueryGetPriceResponse,
+        QueryAllPoolResponse},
 };
 
-use crate::types::{BalanceBorrowed, QueryAprResponse};
+use crate::types::{BalanceBorrowed, QueryAprResponse, Pool};
 use elys_bindings::types::BalanceAvailable;
 
 #[allow(dead_code)]
@@ -178,5 +179,19 @@ impl<'a> ElysQuerier<'a> {
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(oracle_price_query);
         let resp: QueryGetPriceResponse = self.querier.query(&request)?;
         Ok(resp)
+    }
+
+    pub fn get_all_pools(&self) -> StdResult<Vec<Pool>> {
+        let pools_query = ElysQuery::get_all_pools(None);
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(pools_query);
+
+        let resp: QueryAllPoolResponse = self.querier.query(&request)?;
+
+        let pools = match resp.pool {
+            Some(pools) => pools,
+            None => vec![],
+        };
+
+        Ok(pools)
     }
 }

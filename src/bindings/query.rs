@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
 #[allow(unused_imports)]
-use crate::types::{BalanceBorrowed, QueryAprResponse};
+use crate::types::{BalanceBorrowed, QueryAprResponse, PageRequest};
 #[allow(unused_imports)]
 use elys_bindings::types::BalanceAvailable;
 
@@ -44,7 +44,9 @@ pub enum ElysQuery {
     #[returns(Decimal)]
     AmmPriceByDenom{token_in: Coin, discount: Decimal},
     #[returns(QueryGetPriceResponse)]
-    OraclePrice{asset: String, source: String, timestamp: u64}
+    OraclePrice{asset: String, source: String, timestamp: u64},
+    #[returns(QueryAllPoolResponse)]
+    AmmPoolAll{pagination: Option<PageRequest>}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -96,5 +98,8 @@ impl ElysQuery {
     }
     pub fn get_oracle_price(asset: String, source: String, timestamp: u64) -> Self {
         ElysQuery::OraclePrice{ asset, source, timestamp }
+    }
+    pub fn get_all_pools(pagination: Option<PageRequest>) -> Self {
+        ElysQuery::AmmPoolAll{ pagination }
     }
 }

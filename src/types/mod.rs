@@ -74,3 +74,8 @@ pub mod denom;
 pub use denom::ElysDenom;
 
 use elys_bindings::types::BalanceAvailable;
+
+pub mod pool {
+    pub mod pool;
+}
+pub use pool::pool::{Pool, PoolAsset};
