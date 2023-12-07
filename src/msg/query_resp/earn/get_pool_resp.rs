@@ -8,6 +8,7 @@ pub enum FilterType {
 	FilterPerpetual = 1,
 	FilterFixedWeight = 2,
 	FilterDynamicWeight = 3,
+	FilterLeverage = 4,
 }
 
 #[cw_serde]
