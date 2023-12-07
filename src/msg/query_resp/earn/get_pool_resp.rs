@@ -20,9 +20,9 @@ pub struct PoolAsset {
 #[cw_serde]
 pub struct PoolResp {
     pub assets: Vec<PoolAsset>, // eg : [{{"denom":"uatom", "amount":"1000"}, "weight":"10"}, {{"denom":"uusdc", "amount":"100"}, "weight":"1"}, ...]
-    pub pool_ratio: Decimal,
-    pub dex_apr: Decimal,
-    pub eden_apr: Decimal,
+    pub pool_ratio: String,
+    pub rewards_apr: Decimal,
+    pub borrow_apr: Decimal,
     pub leverage_lp: Decimal,
     pub perpetual: Decimal,
     pub tvl: Decimal,
