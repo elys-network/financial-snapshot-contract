@@ -13,7 +13,8 @@ use super::{
         QueryGetPriceResponse},
 };
 
-use crate::types::{BalanceBorrowed, QueryAprResponse};
+use crate::msg::query_resp::earn::QueryEarnPoolResponse;
+use crate::types::{BalanceBorrowed, QueryAprResponse, PageRequest};
 use elys_bindings::types::BalanceAvailable;
 
 #[allow(dead_code)]
@@ -177,6 +178,14 @@ impl<'a> ElysQuerier<'a> {
         };
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(oracle_price_query);
         let resp: QueryGetPriceResponse = self.querier.query(&request)?;
+        Ok(resp)
+    }
+
+    pub fn get_all_pools(&self, pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>) -> StdResult<QueryEarnPoolResponse> {
+        let pools_query = ElysQuery::get_all_pools(pool_ids, filter_type, pagination);
+        let request: QueryRequest<ElysQuery> = QueryRequest::Custom(pools_query);
+
+        let resp: QueryEarnPoolResponse = self.querier.query(&request)?;
         Ok(resp)
     }
 }

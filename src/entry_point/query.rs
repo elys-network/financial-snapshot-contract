@@ -28,5 +28,8 @@ pub fn query(deps: Deps<ElysQuery>, _env: Env, msg: QueryMsg) -> Result<Binary, 
         GetDelegations { delegator_addr } => Ok(to_json_binary(&earn::get_delegations(deps, delegator_addr)?)?),
         GetUnbondingDelegations { delegator_addr } => Ok(to_json_binary(&earn::get_unbonding_delegations(deps, delegator_addr)?)?),
         GetCommitments { delegator_addr } => Ok(to_json_binary(&earn::get_commitments(deps, delegator_addr)?)?),
+
+        // Liquidity Pools
+        GetLiquidityPools { pool_ids, filter_type, pagination} => Ok(to_json_binary(&earn::get_pools(deps, pool_ids, filter_type, pagination)?)?),
     }
 }

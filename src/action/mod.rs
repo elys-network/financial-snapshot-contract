@@ -29,6 +29,7 @@ pub mod query {
         mod get_delegations;
         mod get_unbonding_delegations;
         mod get_commitments;
+        mod get_pools;
 
         use cosmwasm_std::Deps;
         use crate::ContractError;
@@ -41,5 +42,6 @@ pub mod query {
         pub use get_delegations::get_delegations;
         pub use get_unbonding_delegations::get_unbonding_delegations;
         pub use get_commitments::get_commitments;
+        pub use get_pools::get_pools;
     }
 }

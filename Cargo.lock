@@ -370,6 +370,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "elys-bindings"
+version = "0.8.0"
+source = "git+https://github.com/elys-network/bindings?tag=v0.8.0#6e3eba16496f7ea9ded374099c6ad6e51331708f"
+dependencies = [
+ "cosmwasm-schema",
+ "cosmwasm-std",
+ "cw-storage-plus 0.15.1",
+]
+
+[[package]]
 name = "ff"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -381,7 +391,7 @@ dependencies = [
 
 [[package]]
 name = "financial_snapshot_contract"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "cosmwasm-schema",
@@ -389,6 +399,7 @@ dependencies = [
  "cw-multi-test",
  "cw-storage-plus 0.15.1",
  "cw-utils",
+ "elys-bindings",
  "schemars",
  "serde",
  "thiserror",

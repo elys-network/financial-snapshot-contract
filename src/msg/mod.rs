@@ -33,5 +33,7 @@ pub mod query_resp {
         pub use get_elys_earn_details_resp::GetElysEarnProgramResp;
         mod get_usdc_earn_details_resp;
         pub use get_usdc_earn_details_resp::GetUsdcEarnProgramResp;
+        mod get_pool_resp;
+        pub use get_pool_resp::{QueryEarnPoolResponse, FilterType};
     }
 }

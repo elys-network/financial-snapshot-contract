@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use super::query_resp::*;
 #[allow(unused_imports)]
-use crate::types::{BalanceBorrowed, QueryAprResponse};
+use crate::types::{BalanceBorrowed, QueryAprResponse, PageRequest};
 #[allow(unused_imports)]
 use elys_bindings::types::BalanceAvailable;
 
@@ -9,6 +9,9 @@ use elys_bindings::types::BalanceAvailable;
 use cosmwasm_schema::{cw_serde, QueryResponses};
 #[allow(unused_imports)]
 use cosmwasm_std::{CustomQuery, Decimal, Coin};
+
+#[allow(unused_imports)]
+use crate::msg::query_resp::earn::QueryEarnPoolResponse;
 
 #[cw_serde]
 #[derive(QueryResponses)]
@@ -44,7 +47,9 @@ pub enum ElysQuery {
     #[returns(Decimal)]
     AmmPriceByDenom{token_in: Coin, discount: Decimal},
     #[returns(QueryGetPriceResponse)]
-    OraclePrice{asset: String, source: String, timestamp: u64}
+    OraclePrice{asset: String, source: String, timestamp: u64},
+    #[returns(QueryEarnPoolResponse)]
+    AmmEarnMiningPoolAll{pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -96,5 +101,8 @@ impl ElysQuery {
     }
     pub fn get_oracle_price(asset: String, source: String, timestamp: u64) -> Self {
         ElysQuery::OraclePrice{ asset, source, timestamp }
+    }
+    pub fn get_all_pools(pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>) -> Self {
+        ElysQuery::AmmEarnMiningPoolAll{ pool_ids, filter_type, pagination }
     }
 }
