@@ -10,11 +10,11 @@ use super::{
         QueryUnstakedPositionResponse,
         QueryVestingInfoResponse,
         StakedAvailable,
-        QueryGetPriceResponse,
-        QueryAllPoolResponse},
+        QueryGetPriceResponse},
 };
 
-use crate::types::{BalanceBorrowed, QueryAprResponse, Pool};
+use crate::msg::query_resp::earn::QueryEarnPoolResponse;
+use crate::types::{BalanceBorrowed, QueryAprResponse, PageRequest};
 use elys_bindings::types::BalanceAvailable;
 
 #[allow(dead_code)]
@@ -181,17 +181,11 @@ impl<'a> ElysQuerier<'a> {
         Ok(resp)
     }
 
-    pub fn get_all_pools(&self) -> StdResult<Vec<Pool>> {
-        let pools_query = ElysQuery::get_all_pools(None);
+    pub fn get_all_pools(&self, pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>) -> StdResult<QueryEarnPoolResponse> {
+        let pools_query = ElysQuery::get_all_pools(pool_ids, filter_type, pagination);
         let request: QueryRequest<ElysQuery> = QueryRequest::Custom(pools_query);
 
-        let resp: QueryAllPoolResponse = self.querier.query(&request)?;
-
-        let pools = match resp.pool {
-            Some(pools) => pools,
-            None => vec![],
-        };
-
-        Ok(pools)
+        let resp: QueryEarnPoolResponse = self.querier.query(&request)?;
+        Ok(resp)
     }
 }

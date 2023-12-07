@@ -46,6 +46,6 @@ pub enum QueryMsg {
     GetUnbondingDelegations { delegator_addr: String },
     #[returns(QueryShowCommitmentsResponse)]
     GetCommitments { delegator_addr: String },
-    #[returns(QueryPoolResponse)]
+    #[returns(QueryEarnPoolResponse)]
     GetLiquidityPools { pool_ids: Option<Vec<u64>>, filter_type: FilterType, pagination: Option<PageRequest> },
 }

@@ -15,7 +15,8 @@ pub enum FilterType {
 pub struct PoolResp {
     pub assets: Vec<PoolAsset>, // eg : [{{"denom":"uatom", "amount":"1000"}, "weight":"10"}, {{"denom":"uusdc", "amount":"100"}, "weight":"1"}, ...]
     pub pool_ratio: Decimal,
-    pub apr: Decimal,
+    pub dex_apr: Decimal,
+    pub eden_apr: Decimal,
     pub leverage_lp: Decimal,
     pub perpetual: Decimal,
     pub tvl: Decimal,
@@ -23,6 +24,6 @@ pub struct PoolResp {
 }
 
 #[cw_serde]
-pub struct QueryPoolResponse {
+pub struct QueryEarnPoolResponse {
     pub pools: Option<Vec<PoolResp>>,
 }
