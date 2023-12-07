@@ -1,7 +1,6 @@
 
-use cosmwasm_std::Decimal;
+use cosmwasm_std::{Decimal, Uint128, Coin};
 use cosmwasm_schema::cw_serde;
-use crate::types::PoolAsset;
 
 #[cw_serde]
 pub enum FilterType {
@@ -9,6 +8,12 @@ pub enum FilterType {
 	FilterPerpetual = 1,
 	FilterFixedWeight = 2,
 	FilterDynamicWeight = 3,
+}
+
+#[cw_serde]
+pub struct PoolAsset {
+    pub token: Coin, 
+    pub weight: Uint128,
 }
 
 #[cw_serde]
