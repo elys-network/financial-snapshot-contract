@@ -51,5 +51,5 @@ pub enum QueryMsg {
     #[returns(QueryEarnPoolResponse)]
     GetLiquidityPools { pool_ids: Option<Vec<u64>>, filter_type: FilterType, pagination: Option<PageRequest> },
     #[returns(Decimal)]
-    GetUSDCPrice{}
+    GetUsdcPrice{}
 }

@@ -33,6 +33,6 @@ pub fn query(deps: Deps<ElysQuery>, _env: Env, msg: QueryMsg) -> Result<Binary, 
         GetLiquidityPools { pool_ids, filter_type, pagination} => Ok(to_json_binary(&earn::get_pools(deps, pool_ids, filter_type, pagination)?)?),
 
         // Specific function for querying USDC oracle price
-        GetUSDCPrice { } => Ok(to_json_binary(&earn::get_usdc_price(deps)?)?),
+        GetUsdcPrice { } => Ok(to_json_binary(&earn::get_usdc_price(deps)?)?),
     }
 }
