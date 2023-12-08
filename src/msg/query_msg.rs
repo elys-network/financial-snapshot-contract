@@ -7,6 +7,8 @@ use cosmwasm_schema::{cw_serde, QueryResponses};
 use crate::bindings::query_resp::*;
 #[allow(unused_imports)]
 use crate::types::PageRequest;
+#[allow(unused_imports)]
+use cosmwasm_std::Decimal;
 
 #[cw_serde]
 #[derive(QueryResponses)]
@@ -48,4 +50,6 @@ pub enum QueryMsg {
     GetCommitments { delegator_addr: String },
     #[returns(QueryEarnPoolResponse)]
     GetLiquidityPools { pool_ids: Option<Vec<u64>>, filter_type: FilterType, pagination: Option<PageRequest> },
+    #[returns(Decimal)]
+    GetUSDCPrice{}
 }
