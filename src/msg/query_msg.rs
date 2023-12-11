@@ -48,4 +48,6 @@ pub enum QueryMsg {
     GetCommitments { delegator_addr: String },
     #[returns(QueryEarnPoolResponse)]
     GetLiquidityPools { pool_ids: Option<Vec<u64>>, filter_type: FilterType, pagination: Option<PageRequest> },
+    #[returns(GetUsdcPriceResp)]
+    GetUsdcPrice{}
 }
