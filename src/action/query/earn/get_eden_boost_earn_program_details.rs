@@ -11,20 +11,25 @@ pub fn get_eden_boost_earn_program_details(deps: Deps<ElysQuery>, address: Optio
     }
 
     let querier = ElysQuerier::new(&deps.querier);
+
+    let usdc_denom_entry = querier.get_asset_profile(ElysDenom::Usdc.as_str().to_string())?;
+    let usdc_denom = usdc_denom_entry.entry.denom;
+    let usdc_display_denom = usdc_denom_entry.entry.display_name;
+
     let usdc_apr = querier.get_incentive_apr(EarnType::EdenBProgram as i32, ElysDenom::Usdc.as_str().to_string())?;
     let eden_apr = querier.get_incentive_apr(EarnType::EdenBProgram as i32, ElysDenom::Eden.as_str().to_string())?;
 
     let resp = GetEdenBoostEarnProgramResp {
         data: match address {
             Some(addr) => {
-                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Usdc.as_str().to_string(), EarnType::EdenBProgram as i32)?;
+                let usdc_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), usdc_denom.clone(), EarnType::EdenBProgram as i32)?;
                 let eden_rewards = querier.get_sub_bucket_rewards_balance(addr.clone(), ElysDenom::Eden.as_str().to_string(), EarnType::EdenBProgram as i32)?;
                 
                 let available = querier.get_balance(addr.clone(), asset.clone())?;
                 let staked = querier.get_staked_balance(addr.clone(), asset.clone())?;
                 
                 let discount = Decimal::from_atomics(Uint128::new(1000000), 0).unwrap();
-                let usdc_oracle_price = querier.get_oracle_price(ElysDenom::USDC.as_str().to_string(), "elys".to_string(), 0)?;
+                let usdc_oracle_price = querier.get_oracle_price(usdc_display_denom.clone(), ElysDenom::AnySource.as_str().to_string(), 0)?;
                 let usdc_usd_price = usdc_oracle_price.price.price.checked_div(Decimal::from_atomics(Uint128::new(1000000), 0).unwrap()).unwrap();
                 let elys_price_in_usd = querier.get_amm_price_by_denom(coin(Uint128::new(1000000).u128(), ElysDenom::Elys.as_str().to_string()), discount)?;
 

@@ -12,6 +12,10 @@ pub enum ElysDenom {
     Usdc,
     // USDC
     USDC,
+    // ElysSource
+    ElysSource,
+    // AnySource
+    AnySource,
 }
 
 impl ElysDenom {
@@ -22,6 +26,8 @@ impl ElysDenom {
             ElysDenom::EdenBoost => "uedenb",
             ElysDenom::Usdc => "uusdc",
             ElysDenom::USDC => "USDC",
+            ElysDenom::ElysSource => "elys",
+            ElysDenom::AnySource => "",
         }
     }
 }
