@@ -136,6 +136,9 @@ pub struct QueryGetPriceResponse {
 	pub price: Price,
 }
 
+// TODO:
+// Some of the items are commented because of the omitempty flag in protobuf.
+// Until we fix this problem, we keep the items commented to be same result from the live elys testnet asset entry.
 #[cw_serde]
 pub struct Entry {
 	pub base_denom: String,
@@ -146,14 +149,14 @@ pub struct Entry {
 	pub ibc_counterparty_channel_id: String,
 	pub display_name: String,
 	pub display_symbol: String,
-	pub network: String,
-	pub address: String,
+	// pub network: String,
+	// pub address: String,
 	pub external_symbol: String,
-	pub transfer_limit:  String,
-	pub permissions: Vec<String>,
+	// pub transfer_limit:  String,
+	// pub permissions: Vec<String>,
 	pub unit_denom: String,
-	pub ibc_counterparty_denom: String,
-	pub ibc_counterparty_chain_id: String,
+	// pub ibc_counterparty_denom: String,
+	// pub ibc_counterparty_chain_id: String,
 	pub authority: String,
 	pub commit_enabled: bool,
 	pub withdraw_enabled: bool,
