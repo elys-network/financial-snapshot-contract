@@ -13,6 +13,9 @@ use cosmwasm_std::{CustomQuery, Decimal, Coin};
 #[allow(unused_imports)]
 use crate::msg::query_resp::earn::QueryEarnPoolResponse;
 
+use elys_bindings::query_resp::QueryGetEntryResponse;
+
+
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum ElysQuery {
