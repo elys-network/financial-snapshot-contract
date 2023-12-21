@@ -13,6 +13,9 @@ use cosmwasm_std::{CustomQuery, Decimal, Coin};
 #[allow(unused_imports)]
 use crate::msg::query_resp::earn::QueryEarnPoolResponse;
 
+use elys_bindings::query_resp::QueryGetEntryResponse;
+
+
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum ElysQuery {
@@ -49,7 +52,9 @@ pub enum ElysQuery {
     #[returns(QueryGetPriceResponse)]
     OraclePrice{asset: String, source: String, timestamp: u64},
     #[returns(QueryEarnPoolResponse)]
-    AmmEarnMiningPoolAll{pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>}
+    AmmEarnMiningPoolAll{pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>},
+    #[returns(QueryGetEntryResponse)]
+    AssetProfileEntry{base_denom: String}
 }
 
 impl CustomQuery for ElysQuery {}
@@ -104,5 +109,8 @@ impl ElysQuery {
     }
     pub fn get_all_pools(pool_ids: Option<Vec<u64>>, filter_type: i32, pagination: Option<PageRequest>) -> Self {
         ElysQuery::AmmEarnMiningPoolAll{ pool_ids, filter_type, pagination }
+    }
+    pub fn get_asset_profile(base_denom: String) -> Self {
+        ElysQuery::AssetProfileEntry{ base_denom }
     }
 }
